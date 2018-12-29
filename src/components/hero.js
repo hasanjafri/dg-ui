@@ -6,9 +6,8 @@ import history from './history';
 const Hero = () => {
   return (
     <section
-      id="hero"
-      className="blue lighten-4"
-      style={{ backgroundImage: 'url(' + glassesHeroImg + ')' }}
+      id="hero"    
+      style={{ backgroundImage: 'url(' + glassesHeroImg + ')', backgroundColor: 'rgba(0, 0, 0, 0.66)', backgroundBlendMode: 'multiply' }}
     >
       <div className="container valign-wrapper jc-center">
         <div className="valign center-align white-text">
