@@ -1,16 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import StarIcon from '@material-ui/icons/StarBorder';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -19,12 +16,6 @@ const styles = theme => ({
       body: {
         backgroundColor: theme.palette.common.white,
       },
-    },
-    appBar: {
-      position: 'relative',
-    },
-    toolbarTitle: {
-      flex: 1,
     },
     layout: {
       width: 'auto',
@@ -117,92 +108,78 @@ const footers = [
 ];
 
 function Pricing(props) {
-const { classes } = props;
+    const { classes } = props;
 
 return (
     <React.Fragment>
-    <CssBaseline />
-    <AppBar position="static" color="default" className={classes.appBar}>
-        <Toolbar>
-        <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            Company name
-        </Typography>
-        <Button>Features</Button>
-        <Button>Enterprise</Button>
-        <Button>Support</Button>
-        <Button color="primary" variant="outlined">
-            Login
-        </Button>
-        </Toolbar>
-    </AppBar>
-    <main className={classes.layout}>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-            Pricing
-        </Typography>
-        <Typography variant="h6" align="center" color="textSecondary" component="p">
-            Quickly build an effective pricing table for your potential customers with this layout.
-            It&apos;s built with default Material-UI components with little customization.
-        </Typography>
-        </div>
-        {/* End hero unit */}
-        <Grid container spacing={40} alignItems="flex-end">
-        {tiers.map(tier => (
-            // Enterprise card is full width at sm breakpoint
-            <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
-            <Card>
-                <CardHeader
-                title={tier.title}
-                subheader={tier.subheader}
-                titleTypographyProps={{ align: 'center' }}
-                subheaderTypographyProps={{ align: 'center' }}
-                action={tier.title === 'Pro' ? <StarIcon /> : null}
-                className={classes.cardHeader}
-                />
-                <CardContent>
-                <div className={classes.cardPricing}>
-                    <Typography component="h2" variant="h3" color="textPrimary">
-                    ${tier.price}
-                    </Typography>
-                    <Typography variant="h6" color="textSecondary">
-                    /mo
-                    </Typography>
-                </div>
-                {tier.description.map(line => (
-                    <Typography variant="subtitle1" align="center" key={line}>
-                    {line}
-                    </Typography>
-                ))}
-                </CardContent>
-                <CardActions className={classes.cardActions}>
-                <Button fullWidth variant={tier.buttonVariant} color="primary">
-                    {tier.buttonText}
-                </Button>
-                </CardActions>
-            </Card>
+        <main className={classes.layout}>
+            {/* Hero unit */}
+            <div className={classes.heroContent}>
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                Pricing
+            </Typography>
+            <Typography variant="h6" align="center" color="textSecondary" component="p">
+                Quickly build an effective pricing table for your potential customers with this layout.
+                It&apos;s built with default Material-UI components with little customization.
+            </Typography>
+            </div>
+            {/* End hero unit */}
+            <Grid container spacing={40} alignItems="flex-end">
+            {tiers.map(tier => (
+                // Enterprise card is full width at sm breakpoint
+                <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
+                <Card>
+                    <CardHeader
+                    title={tier.title}
+                    subheader={tier.subheader}
+                    titleTypographyProps={{ align: 'center' }}
+                    subheaderTypographyProps={{ align: 'center' }}
+                    action={tier.title === 'Pro' ? <StarIcon /> : null}
+                    className={classes.cardHeader}
+                    />
+                    <CardContent>
+                    <div className={classes.cardPricing}>
+                        <Typography component="h2" variant="h3" color="textPrimary">
+                        ${tier.price}
+                        </Typography>
+                        <Typography variant="h6" color="textSecondary">
+                        /mo
+                        </Typography>
+                    </div>
+                    {tier.description.map(line => (
+                        <Typography variant="subtitle1" align="center" key={line}>
+                        {line}
+                        </Typography>
+                    ))}
+                    </CardContent>
+                    <CardActions className={classes.cardActions}>
+                    <Button fullWidth variant={tier.buttonVariant} color="primary">
+                        {tier.buttonText}
+                    </Button>
+                    </CardActions>
+                </Card>
+                </Grid>
+            ))}
             </Grid>
-        ))}
-        </Grid>
-    </main>
-    {/* Footer */}
-    <footer className={classNames(classes.footer, classes.layout)}>
-        <Grid container spacing={32} justify="space-evenly">
-        {footers.map(footer => (
-            <Grid item xs key={footer.title}>
-                <Typography variant="h6" color="textPrimary" gutterBottom>
-                    {footer.title}
-                </Typography>
-                {footer.description.map(item => (
-                    <Typography key={item} variant="subtitle1" color="textSecondary">
-                        {item}
+        </main>
+        {/* Footer */}
+        <footer className={classNames(classes.footer, classes.layout)}>
+            <Grid container spacing={32} justify="space-evenly">
+            {footers.map(footer => (
+                <Grid item xs key={footer.title}>
+                    <Typography variant="h6" color="textPrimary" gutterBottom>
+                        {footer.title}
                     </Typography>
-                ))}
+                    {footer.description.map(item => (
+                        <Typography key={item} variant="subtitle1" color="textSecondary">
+                            {item}
+                        </Typography>
+                    ))}
+                </Grid>
+            ))}
             </Grid>
-        ))}
-        </Grid>
-    </footer>
-    {/* End footer */}
+        </footer>
+        {/* End footer */}
     </React.Fragment>
 );
 }
