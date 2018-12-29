@@ -1,4 +1,5 @@
 import React from 'react';
+import About from '../about';
 import Exemplar from '../exemplar';
 import Features from '../features';
 import Hero from '../hero';
@@ -13,6 +14,7 @@ function Home(props) {
             <Hero/>
             <Exemplar/>
             <Features/>
+            <About/>
         </React.Fragment>
     );
 }
