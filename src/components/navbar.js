@@ -28,18 +28,18 @@ function NavBar(props) {
         <React.Fragment>
             <AppBar position="static" color="default" className={classes.appBar}>
                 <Toolbar>
-                <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-                    Datagram
-                </Typography>
-                <Button>Home</Button>
-                <Button>About</Button>
-                <Button>Plans</Button>
-                <Button color="primary" variant="outlined" onClick={() => history.push('/login')}>
-                    Login
-                </Button>
-                <Button color="secondary" variant="outlined">
-                    Sign Up
-                </Button>
+                    <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+                        Datagram
+                    </Typography>
+                    <Button onClick={() => history.push('/')}>Home</Button>
+                    <Button>About</Button>
+                    <Button onClick={() => history.push('/plans')}>Plans</Button>
+                    <Button color="primary" variant="outlined" onClick={() => history.push('/login')}>
+                        Login
+                    </Button>
+                    <Button color="secondary" variant="outlined" onClick={() => history.push('/register')}>
+                        Sign Up
+                    </Button>
                 </Toolbar>
             </AppBar>
         </React.Fragment>
