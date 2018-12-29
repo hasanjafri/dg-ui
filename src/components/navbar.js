@@ -1,4 +1,5 @@
 import React from 'react';
+import history from './history';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -28,13 +29,16 @@ function NavBar(props) {
             <AppBar position="static" color="default" className={classes.appBar}>
                 <Toolbar>
                 <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-                    Company name
+                    Datagram
                 </Typography>
-                <Button>Features</Button>
-                <Button>Enterprise</Button>
-                <Button>Support</Button>
-                <Button color="primary" variant="outlined">
+                <Button>Home</Button>
+                <Button>About</Button>
+                <Button>Plans</Button>
+                <Button color="primary" variant="outlined" onClick={() => history.push('/login')}>
                     Login
+                </Button>
+                <Button color="secondary" variant="outlined">
+                    Sign Up
                 </Button>
                 </Toolbar>
             </AppBar>
