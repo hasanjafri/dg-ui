@@ -32,6 +32,7 @@ function NavBar(props) {
                         Datagram
                     </Typography>
                     <Button onClick={() => history.push('/')}>Home</Button>
+                    <Button onClick={() => history.push('/team')}>Team</Button>
                     <Button onClick={() => history.push('/plans')}>Plans</Button>
                     <Button color="primary" variant="outlined" onClick={() => history.push('/login')}>
                         Login
