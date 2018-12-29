@@ -1,5 +1,6 @@
 import React from 'react';
 import Exemplar from '../exemplar';
+import Features from '../features';
 import Hero from '../hero';
 import NavBar from '../navbar';
 
@@ -11,6 +12,7 @@ function Home(props) {
             <NavBar/>
             <Hero/>
             <Exemplar/>
+            <Features/>
         </React.Fragment>
     );
 }
