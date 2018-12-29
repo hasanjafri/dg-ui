@@ -20,6 +20,8 @@ const Hero = () => {
             <br/>
             entirely customized and made to order
           </p>
+
+          <a className="btn waves-light waves-effect m-r-16">Sign Up</a>
         </div>
       </div>
     </section>
