@@ -1,6 +1,7 @@
 import React from 'react';
-import SimpleLineChart from './simplelinechart';
-import SimpleTable from './simpletable';
+import SideNavBar from '../sidenavbar';
+import SimpleLineChart from '../simplelinechart';
+import SimpleTable from '../simpletable';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -26,6 +27,7 @@ class Dashboard extends React.Component {
 
     return(
       <React.Fragment>
+        <SideNavBar/>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography variant="h4" gutterBottom component="h2">

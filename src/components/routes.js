@@ -7,6 +7,8 @@ import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import Team from './pages/team';
 
+import Dashboard from './pages/dashboard/views/dashboard';
+
 const Routes = () => {
     return(
         <Switch>
@@ -15,6 +17,7 @@ const Routes = () => {
             <Route path="/login" exact component={SignIn}/>
             <Route path="/register" exact component={SignUp}/>
             <Route path="/team" exact component={Team}/>
+            <Route path="/dashboard" exact component={Dashboard}/>
         </Switch>
     )
 }
