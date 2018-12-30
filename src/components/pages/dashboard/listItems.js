@@ -1,4 +1,5 @@
 import React from 'react';
+import history from '../../history';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -13,7 +14,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 export const mainListItems = (
   <div>
     <ListSubheader inset>Project Statistics</ListSubheader>
-    <ListItem button>
+    <ListItem button onClick={() => history.push('/dashboard')}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
@@ -79,7 +80,7 @@ export const thirdListItems = (
       </ListItemIcon>
       <ListItemText primary="Contact Us" />
     </ListItem>
-    <ListItem button>
+    <ListItem button onClick={() => history.push('/')}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>

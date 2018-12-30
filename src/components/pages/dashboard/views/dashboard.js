@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../footer';
 import SideNavBar from '../sidenavbar';
 import SimpleLineChart from '../simplelinechart';
 import SimpleTable from '../simpletable';
@@ -29,24 +30,27 @@ class Dashboard extends React.Component {
     const { classes } = this.props
 
     return(
-      <div className={classes.root}>
-        <SideNavBar/>
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Typography variant="h4" gutterBottom component="h2">
-            Orders
-          </Typography>
-          <Typography component="div" className={classes.chartContainer}>
-            <SimpleLineChart />
-          </Typography>
-          <Typography variant="h4" gutterBottom component="h2">
-            Products
-          </Typography>
-          <div className={classes.tableContainer}>
-            <SimpleTable />
-          </div>
-        </main>
-      </div>
+      <React.Fragment>
+        <div className={classes.root}>
+          <SideNavBar/>
+          <main className={classes.content}>
+            <div className={classes.appBarSpacer} />
+            <Typography variant="h4" gutterBottom component="h2">
+              Orders
+            </Typography>
+            <Typography component="div" className={classes.chartContainer}>
+              <SimpleLineChart />
+            </Typography>
+            <Typography variant="h4" gutterBottom component="h2">
+              Products
+            </Typography>
+            <div className={classes.tableContainer}>
+              <SimpleTable />
+            </div>
+          </main>
+        </div>
+        <Footer/>
+      </React.Fragment>
     )
   }
 }
