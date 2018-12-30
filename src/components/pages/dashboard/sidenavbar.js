@@ -39,7 +39,7 @@ const styles = theme => ({
         marginLeft: 12,
         marginRight: 36,
     },
-      menuButtonHidden: {
+    menuButtonHidden: {
         display: 'none',
     },
     title: {
@@ -130,7 +130,7 @@ class SideNavBar extends React.Component{
                 >
                     <div className={classes.toolbarIcon}>
                         <IconButton onClick={this.handleDrawerClose}>
-                        <ChevronLeftIcon />
+                            <ChevronLeftIcon />
                         </IconButton>
                     </div>
                     <Divider />

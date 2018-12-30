@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
+  root: {
+    display: 'flex',
+  },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -26,7 +29,7 @@ class Dashboard extends React.Component {
     const { classes } = this.props
 
     return(
-      <React.Fragment>
+      <div className={classes.root}>
         <SideNavBar/>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -43,7 +46,7 @@ class Dashboard extends React.Component {
             <SimpleTable />
           </div>
         </main>
-      </React.Fragment>
+      </div>
     )
   }
 }
