@@ -12,7 +12,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems, secondaryListItems, thirdListItems } from './listItems';
 
 const drawerWidth = 240;
 
@@ -137,6 +137,8 @@ class SideNavBar extends React.Component{
                     <List>{mainListItems}</List>
                     <Divider />
                     <List>{secondaryListItems}</List>
+                    <Divider />
+                    <List>{thirdListItems}</List>
                 </Drawer>
             </React.Fragment>
         );
