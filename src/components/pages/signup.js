@@ -48,7 +48,31 @@ class SignUp extends Component {
 
   state = {
     tier: 0,
-    period: 0
+    period: 0,
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    phoneNum: '',
+    bday: ''
+  }
+
+  generateBodyDict = () => {
+    console.log(this.state);
+
+    if (this.state.tier )
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    fetch('http://localhost:6969/', {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(this.state)
+    })
   }
 
   handleChange = name => event => {
@@ -74,27 +98,27 @@ class SignUp extends Component {
             <form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                <Input id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
+                <Input value={this.state.email} onChange={this.handleChange('email')} id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
-                <Input name="password" type="password" id="password" autoComplete="current-password" disableUnderline/>
+                <Input value={this.state.password} onChange={this.handleChange('password')} name="password" type="password" id="password" autoComplete="current-password" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
-                <Input name="firstName" type="text" id="firstName" autoComplete="name" disableUnderline/>
+                <Input value={this.state.firstName} onChange={this.handleChange('firstName')} name="firstName" type="text" id="firstName" autoComplete="name" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="lastName">Last Name</InputLabel>
-                <Input name="lastName" type="text" id="lastName" autoComplete="family-name" disableUnderline/>
+                <Input value={this.state.lastName} onChange={this.handleChange('lastName')} name="lastName" type="text" id="lastName" autoComplete="family-name" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="phoneNum">Primary Phone Number</InputLabel>
-                <Input name="phoneNum" type="text" id="phoneNum" autoComplete="tel" disableUnderline/>
+                <Input value={this.state.phoneNum} onChange={this.handleChange('phoneNum')} name="phoneNum" type="text" id="phoneNum" autoComplete="tel" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="bday" shrink>Birthday</InputLabel>
-                <Input name="bday" type="date" id="bday" autoComplete="bday" disableUnderline/>
+                <Input value={this.state.bday} onChange={this.handleChange('bday')} name="bday" type="date" id="bday" autoComplete="bday" disableUnderline/>
               </FormControl>
               <FormControl required margin="normal" fullWidth>
                 <InputLabel htmlFor="tier-native-required">Subscription Tier</InputLabel>
