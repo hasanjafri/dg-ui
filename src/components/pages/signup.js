@@ -76,11 +76,15 @@ class SignUp extends Component {
     var tierErrorCheck = this.state.tier === "0";
     var periodErrorCheck = this.state.period === "0";
     var countryErrorCheck = this.state.country === "";
+    var emailErrorCheck = !(this.state.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/));
+    var passwordErrorCheck = !(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})").test(this.state.password));
 
     this.setState({
       tierError: tierErrorCheck,
       periodError: periodErrorCheck,
-      countryError: countryErrorCheck
+      countryError: countryErrorCheck,
+      emailError: emailErrorCheck,
+      passwordError: passwordErrorCheck
     })
   }
 
