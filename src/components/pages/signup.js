@@ -78,14 +78,38 @@ class SignUp extends Component {
     var countryErrorCheck = this.state.country === "";
     var emailErrorCheck = !(this.state.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/));
     var passwordErrorCheck = !(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})").test(this.state.password));
+    var firstNameErrorCheck;
+    var lastNameErrorCheck;
+    var phoneNumErrorCheck;
+    var bdayErrorCheck;
 
-    this.setState({
-      tierError: tierErrorCheck,
-      periodError: periodErrorCheck,
-      countryError: countryErrorCheck,
-      emailError: emailErrorCheck,
-      passwordError: passwordErrorCheck
-    })
+    if (tierErrorCheck || periodErrorCheck || countryErrorCheck || emailErrorCheck || passwordErrorCheck || firstNameErrorCheck || lastNameErrorCheck || phoneNumErrorCheck || bdayErrorCheck) {
+      this.setState({
+        tierError: tierErrorCheck,
+        periodError: periodErrorCheck,
+        countryError: countryErrorCheck,
+        emailError: emailErrorCheck,
+        passwordError: passwordErrorCheck,
+        firstNameError: firstNameErrorCheck,
+        lastNameError: lastNameErrorCheck,
+        phoneNumError: phoneNumErrorCheck,
+        bdayError: bdayErrorCheck
+      })
+      return {}
+    } else {
+      return {
+        "email": this.state.email,
+        "password": this.state.password,
+        "firstName": this.state.firstName,
+        "lastName": this.state.lastName,
+        "phoneNum": this.state.phoneNum,
+        "country": this.state.country[0],
+        "countryCode": this.state.country[1],
+        "bday": this.state.bday,
+        "tier": this.state.tier,
+        "period": this.state.period
+      }
+    }
   }
 
   handleSubmit = (event) => {
