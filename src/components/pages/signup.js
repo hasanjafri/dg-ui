@@ -9,6 +9,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import NavBar from '../navbar';
 import Paper from '@material-ui/core/Paper';
+import Select from '@material-ui/core/Select';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -82,6 +84,16 @@ function SignUp(props) {
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="bday" shrink>Birthday</InputLabel>
               <Input name="bday" type="date" id="bday" autoComplete="bday" disableUnderline/>
+            </FormControl>
+            <FormControl required margin="normal">
+              <InputLabel htmlFor="tier-native-required">Subscription Tier</InputLabel>
+              <Select native value={this.state.tier} onChange={this.handleChange('tier')} name="tier" inputProps={{ id: 'tier-native-required' }}>
+                <option value=""/>
+                <option value={1}>Premium</option>
+                <option value={2}>Elite</option>
+                <option value={3}>Data Master</option>
+              </Select>
+              <FormHelperText>Required</FormHelperText>
             </FormControl>
             <Button
               type="submit"
