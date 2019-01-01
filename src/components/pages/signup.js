@@ -6,7 +6,7 @@ import Footer from '../footer';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
+import NewRealeasesIcon from '@material-ui/icons/NewReleases';
 import NavBar from '../navbar';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
@@ -66,7 +66,7 @@ class SignUp extends Component {
         <main className={classes.main}>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
-              <LockIcon />
+              <NewRealeasesIcon/>
             </Avatar>
             <Typography component="h1" variant="h6">
               Sign up to access all of our features!
