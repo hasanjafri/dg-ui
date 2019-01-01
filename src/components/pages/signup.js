@@ -7,12 +7,15 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import NewRealeasesIcon from '@material-ui/icons/NewReleases';
 import NavBar from '../navbar';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { CountryRegionData } from 'react-country-region-selector';
 
 const styles = theme => ({
   main: {
@@ -55,6 +58,7 @@ class SignUp extends Component {
     firstName: '',
     lastName: '',
     phoneNum: '',
+    country: '',
     bday: '',
     tierError: false,
     periodError: false,
@@ -63,6 +67,7 @@ class SignUp extends Component {
     firstNameError: false,
     lastNameError: false,
     phoneNumError: false,
+    countryError: false,
     bdayError: false
   }
 
@@ -79,6 +84,7 @@ class SignUp extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if ([1, 2, 3].indexOf(this.state.tier) === -1) {
+      console.log(this.state.tier);
       this.setState({
         tierError: true
       })
@@ -117,23 +123,38 @@ class SignUp extends Component {
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
                 <Input value={this.state.email} onChange={this.handleChange('email')} id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
+                {this.state.emailError === true ? <FormHelperText error>You must enter a valid email</FormHelperText> : null}
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <Input value={this.state.password} onChange={this.handleChange('password')} name="password" type="password" id="password" autoComplete="current-password" disableUnderline/>
+                {this.state.passwordError === true ? <FormHelperText error>You must choose a valid password</FormHelperText> : null}
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
                 <Input value={this.state.firstName} onChange={this.handleChange('firstName')} name="firstName" type="text" id="firstName" autoComplete="name" disableUnderline/>
+                {this.state.firstNameError === true ? <FormHelperText error>First name cannot contain any numbers or special characters.</FormHelperText> : null}
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="lastName">Last Name</InputLabel>
                 <Input value={this.state.lastName} onChange={this.handleChange('lastName')} name="lastName" type="text" id="lastName" autoComplete="family-name" disableUnderline/>
+                {this.state.lastNameError === true ? <FormHelperText error>Last name cannot contain any numbers or special characters.</FormHelperText> : null}
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="phoneNum">Primary Phone Number</InputLabel>
                 <Input value={this.state.phoneNum} onChange={this.handleChange('phoneNum')} name="phoneNum" type="text" id="phoneNum" autoComplete="tel" disableUnderline/>
+                {this.state.phoneNumError === true ? <FormHelperText error>Phone number must only contain numbers</FormHelperText> : null}
               </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <TextField id="country" label="Country" required value={this.state.country} select onChange={this.handleChange('country')}>
+                  {CountryRegionData.map((option, i) => (
+                    <MenuItem key={option[0]} value={option}>
+                      {option[0]}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                {this.state.countryError === true ? <FormHelperText error>Please select your country</FormHelperText> : null}
+              </FormControl>                
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="bday" shrink>Birthday</InputLabel>
                 <Input value={this.state.bday} onChange={this.handleChange('bday')} name="bday" type="date" id="bday" autoComplete="bday" disableUnderline/>
@@ -146,6 +167,7 @@ class SignUp extends Component {
                   <option value={2}>Elite</option>
                   <option value={3}>Data Master</option>
                 </Select>
+                {this.state.tierError === true ? <FormHelperText error>You must select a subscription tier</FormHelperText> : null}
               </FormControl>
               <FormControl required margin="normal" fullWidth>
                 <InputLabel htmlFor="period-native-required">Subscription Period</InputLabel>
