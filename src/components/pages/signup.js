@@ -4,6 +4,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Footer from '../footer';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import NewRealeasesIcon from '@material-ui/icons/NewReleases';
@@ -54,20 +55,34 @@ class SignUp extends Component {
     firstName: '',
     lastName: '',
     phoneNum: '',
-    bday: ''
+    bday: '',
+    tierError: false,
+    periodError: false,
+    emailError: false,
+    passwordError: false,
+    firstNameError: false,
+    lastNameError: false,
+    phoneNumError: false,
+    bdayError: false
   }
 
   generateBodyDict = () => {
     console.log(this.state);
 
     if ([1, 2, 3].indexOf(this.state.tier) === -1) {
-      this.tier.props.error = True;
+      this.setState({
+        tierError: true
+      })
     }
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.email);
+    if ([1, 2, 3].indexOf(this.state.tier) === -1) {
+      this.setState({
+        tierError: true
+      })
+    }
     // fetch('http://localhost:6969/', {
     //   method: "POST",
     //   mode: "cors",
@@ -101,31 +116,31 @@ class SignUp extends Component {
             <form className={classes.form} onSubmit={this.handleSubmit}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                <Input ref={email => {this.email = email;}} value={this.state.email} onChange={this.handleChange('email')} id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
+                <Input value={this.state.email} onChange={this.handleChange('email')} id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
-                <Input ref={password => {this.password = password;}} value={this.state.password} onChange={this.handleChange('password')} name="password" type="password" id="password" autoComplete="current-password" disableUnderline/>
+                <Input value={this.state.password} onChange={this.handleChange('password')} name="password" type="password" id="password" autoComplete="current-password" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
-                <Input ref={firstName => {this.firstName = firstName;}} value={this.state.firstName} onChange={this.handleChange('firstName')} name="firstName" type="text" id="firstName" autoComplete="name" disableUnderline/>
+                <Input value={this.state.firstName} onChange={this.handleChange('firstName')} name="firstName" type="text" id="firstName" autoComplete="name" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="lastName">Last Name</InputLabel>
-                <Input ref={lastName => {this.lastName = lastName;}} value={this.state.lastName} onChange={this.handleChange('lastName')} name="lastName" type="text" id="lastName" autoComplete="family-name" disableUnderline/>
+                <Input value={this.state.lastName} onChange={this.handleChange('lastName')} name="lastName" type="text" id="lastName" autoComplete="family-name" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="phoneNum">Primary Phone Number</InputLabel>
-                <Input ref={phoneNum => {this.phoneNum = phoneNum;}} value={this.state.phoneNum} onChange={this.handleChange('phoneNum')} name="phoneNum" type="text" id="phoneNum" autoComplete="tel" disableUnderline/>
+                <Input value={this.state.phoneNum} onChange={this.handleChange('phoneNum')} name="phoneNum" type="text" id="phoneNum" autoComplete="tel" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="bday" shrink>Birthday</InputLabel>
-                <Input ref={bday => {this.bday = bday;}} value={this.state.bday} onChange={this.handleChange('bday')} name="bday" type="date" id="bday" autoComplete="bday" disableUnderline/>
+                <Input value={this.state.bday} onChange={this.handleChange('bday')} name="bday" type="date" id="bday" autoComplete="bday" disableUnderline/>
               </FormControl>
               <FormControl required margin="normal" fullWidth>
                 <InputLabel htmlFor="tier-native-required">Subscription Tier</InputLabel>
-                <Select ref={tier => {this.tier = tier;}} native value={this.state.tier} onChange={this.handleChange('tier')} name="tier" inputProps={{ id: 'tier-native-required' }}>
+                <Select error={this.state.tierError} native value={this.state.tier} onChange={this.handleChange('tier')} name="tier" inputProps={{ id: 'tier-native-required' }}>
                   <option value={0}></option>
                   <option value={1}>Premium</option>
                   <option value={2}>Elite</option>
@@ -134,7 +149,7 @@ class SignUp extends Component {
               </FormControl>
               <FormControl required margin="normal" fullWidth>
                 <InputLabel htmlFor="period-native-required">Subscription Period</InputLabel>
-                <Select ref={period => {this.period = period;}} native value={this.state.period} onChange={this.handleChange('period')} name="period" inputProps={{ id: 'period-native-required' }}>
+                <Select native value={this.state.period} onChange={this.handleChange('period')} name="period" inputProps={{ id: 'period-native-required' }}>
                   <option value={0}></option>
                   <option value={1}>Monthly</option>
                   <option value={2}>Annual (Save 15% More!)</option>
