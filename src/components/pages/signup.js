@@ -60,19 +60,22 @@ class SignUp extends Component {
   generateBodyDict = () => {
     console.log(this.state);
 
-    if (this.state.tier )
+    if ([1, 2, 3].indexOf(this.state.tier) === -1) {
+      this.tier.props.error = True;
+    }
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    fetch('http://localhost:6969/', {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(this.state)
-    })
+    console.log(this.email);
+    // fetch('http://localhost:6969/', {
+    //   method: "POST",
+    //   mode: "cors",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(this.state)
+    // })
   }
 
   handleChange = name => event => {
@@ -95,34 +98,34 @@ class SignUp extends Component {
             <Typography component="h1" variant="h6">
               Sign up to access all of our features!
             </Typography>
-            <form className={classes.form}>
+            <form className={classes.form} onSubmit={this.handleSubmit}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                <Input value={this.state.email} onChange={this.handleChange('email')} id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
+                <Input ref={email => {this.email = email;}} value={this.state.email} onChange={this.handleChange('email')} id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
-                <Input value={this.state.password} onChange={this.handleChange('password')} name="password" type="password" id="password" autoComplete="current-password" disableUnderline/>
+                <Input ref={password => {this.password = password;}} value={this.state.password} onChange={this.handleChange('password')} name="password" type="password" id="password" autoComplete="current-password" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
-                <Input value={this.state.firstName} onChange={this.handleChange('firstName')} name="firstName" type="text" id="firstName" autoComplete="name" disableUnderline/>
+                <Input ref={firstName => {this.firstName = firstName;}} value={this.state.firstName} onChange={this.handleChange('firstName')} name="firstName" type="text" id="firstName" autoComplete="name" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="lastName">Last Name</InputLabel>
-                <Input value={this.state.lastName} onChange={this.handleChange('lastName')} name="lastName" type="text" id="lastName" autoComplete="family-name" disableUnderline/>
+                <Input ref={lastName => {this.lastName = lastName;}} value={this.state.lastName} onChange={this.handleChange('lastName')} name="lastName" type="text" id="lastName" autoComplete="family-name" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="phoneNum">Primary Phone Number</InputLabel>
-                <Input value={this.state.phoneNum} onChange={this.handleChange('phoneNum')} name="phoneNum" type="text" id="phoneNum" autoComplete="tel" disableUnderline/>
+                <Input ref={phoneNum => {this.phoneNum = phoneNum;}} value={this.state.phoneNum} onChange={this.handleChange('phoneNum')} name="phoneNum" type="text" id="phoneNum" autoComplete="tel" disableUnderline/>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="bday" shrink>Birthday</InputLabel>
-                <Input value={this.state.bday} onChange={this.handleChange('bday')} name="bday" type="date" id="bday" autoComplete="bday" disableUnderline/>
+                <Input ref={bday => {this.bday = bday;}} value={this.state.bday} onChange={this.handleChange('bday')} name="bday" type="date" id="bday" autoComplete="bday" disableUnderline/>
               </FormControl>
               <FormControl required margin="normal" fullWidth>
                 <InputLabel htmlFor="tier-native-required">Subscription Tier</InputLabel>
-                <Select native value={this.state.tier} onChange={this.handleChange('tier')} name="tier" inputProps={{ id: 'tier-native-required' }}>
+                <Select ref={tier => {this.tier = tier;}} native value={this.state.tier} onChange={this.handleChange('tier')} name="tier" inputProps={{ id: 'tier-native-required' }}>
                   <option value={0}></option>
                   <option value={1}>Premium</option>
                   <option value={2}>Elite</option>
@@ -131,7 +134,7 @@ class SignUp extends Component {
               </FormControl>
               <FormControl required margin="normal" fullWidth>
                 <InputLabel htmlFor="period-native-required">Subscription Period</InputLabel>
-                <Select native value={this.state.period} onChange={this.handleChange('period')} name="period" inputProps={{ id: 'period-native-required' }}>
+                <Select ref={period => {this.period = period;}} native value={this.state.period} onChange={this.handleChange('period')} name="period" inputProps={{ id: 'period-native-required' }}>
                   <option value={0}></option>
                   <option value={1}>Monthly</option>
                   <option value={2}>Annual (Save 15% More!)</option>
