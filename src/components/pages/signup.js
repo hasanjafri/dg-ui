@@ -51,8 +51,8 @@ const styles = theme => ({
 class SignUp extends Component {
 
   state = {
-    tier: 0,
-    period: 0,
+    tier: "0",
+    period: "0",
     email: '',
     password: '',
     firstName: '',
@@ -73,28 +73,21 @@ class SignUp extends Component {
 
   generateBodyDict = () => {
     console.log(this.state);
+    var tierErrorCheck = this.state.tier === "0";
+    var periodErrorCheck = this.state.period === "0";
+    var countryErrorCheck = this.state.country === "";
 
-    if ([1, 2, 3].indexOf(this.state.tier) === -1) {
-      this.setState({
-        tierError: true
-      })
-    }
+    this.setState({
+      tierError: tierErrorCheck,
+      periodError: periodErrorCheck,
+      countryError: countryErrorCheck
+    })
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if (this.state.tier === 0) {
-      var tierError = true;
-    }
-
-    if (this.state.country === '') {
-      var countryError = true;
-    }
-
-    this.setState({
-      tierError: tierError,
-      countryError: countryError
-    })
+    console.log(this.state.tier, this.state.tierError);
+    this.generateBodyDict();
 
     // fetch('http://localhost:6969/', {
     //   method: "POST",
@@ -183,6 +176,7 @@ class SignUp extends Component {
                   <option value={1}>Monthly</option>
                   <option value={2}>Annual (Save 15% More!)</option>
                 </Select>
+                {this.state.periodError === true ? <FormHelperText error>You must select a subscription period</FormHelperText> : null}
               </FormControl>
               <Button
                 type="submit"
