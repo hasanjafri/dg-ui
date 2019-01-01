@@ -78,8 +78,8 @@ class SignUp extends Component {
     var countryErrorCheck = this.state.country === "";
     var emailErrorCheck = !(this.state.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/));
     var passwordErrorCheck = !(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})").test(this.state.password));
-    var firstNameErrorCheck;
-    var lastNameErrorCheck;
+    var firstNameErrorCheck = !((/^[A-Za-z0-9-]/).test(this.state.firstName));
+    var lastNameErrorCheck = !((/^[A-Za-z0-9-]/).test(this.state.lastName));
     var phoneNumErrorCheck;
     var bdayErrorCheck;
 
@@ -161,12 +161,12 @@ class SignUp extends Component {
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="firstName">First Name</InputLabel>
                 <Input value={this.state.firstName} onChange={this.handleChange('firstName')} name="firstName" type="text" id="firstName" autoComplete="name" disableUnderline/>
-                {this.state.firstNameError === true ? <FormHelperText error>First name cannot contain any numbers or special characters.</FormHelperText> : null}
+                {this.state.firstNameError === true ? <FormHelperText error>First name can only contain alphanumeric characters or hyphens</FormHelperText> : null}
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="lastName">Last Name</InputLabel>
                 <Input value={this.state.lastName} onChange={this.handleChange('lastName')} name="lastName" type="text" id="lastName" autoComplete="family-name" disableUnderline/>
-                {this.state.lastNameError === true ? <FormHelperText error>Last name cannot contain any numbers or special characters.</FormHelperText> : null}
+                {this.state.lastNameError === true ? <FormHelperText error>Last name can only contain alphanumeric characters or hyphen</FormHelperText> : null}
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="phoneNum">Primary Phone Number</InputLabel>
