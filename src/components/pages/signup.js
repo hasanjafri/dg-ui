@@ -4,8 +4,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Footer from '../footer';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import LockIcon from '@material-ui/icons/LockOutlined';
@@ -63,16 +61,28 @@ function SignUp(props) {
           <form className={classes.form}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
+              <Input id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" />
+              <Input name="password" type="password" id="password" autoComplete="current-password" disableUnderline/>
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="firstName">First Name</InputLabel>
+              <Input name="firstName" type="text" id="firstName" autoComplete="name" disableUnderline/>
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="lastName">Last Name</InputLabel>
+              <Input name="lastName" type="text" id="lastName" autoComplete="family-name" disableUnderline/>
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="phoneNum">Primary Phone Number</InputLabel>
+              <Input name="phoneNum" type="text" id="phoneNum" autoComplete="tel" disableUnderline/>
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="bday" shrink>Birthday</InputLabel>
+              <Input name="bday" type="date" id="bday" autoComplete="bday" disableUnderline/>
+            </FormControl>
             <Button
               type="submit"
               fullWidth
