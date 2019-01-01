@@ -83,12 +83,19 @@ class SignUp extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if ([1, 2, 3].indexOf(this.state.tier) === -1) {
-      console.log(this.state.tier);
-      this.setState({
-        tierError: true
-      })
+    if (this.state.tier === 0) {
+      var tierError = true;
     }
+
+    if (this.state.country === '') {
+      var countryError = true;
+    }
+
+    this.setState({
+      tierError: tierError,
+      countryError: countryError
+    })
+
     // fetch('http://localhost:6969/', {
     //   method: "POST",
     //   mode: "cors",

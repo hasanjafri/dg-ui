@@ -22,7 +22,7 @@ const Hero = () => {
             entirely customized and made to order
           </p>
 
-          <Button color="secondary" variant="raised" onClick={() => history.push('/register')}>
+          <Button color="secondary" variant="contained" onClick={() => history.push('/register')}>
             Sign Up
           </Button>
         </div>
