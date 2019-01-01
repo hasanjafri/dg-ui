@@ -68,7 +68,8 @@ class SignUp extends Component {
     lastNameError: false,
     phoneNumError: false,
     countryError: false,
-    bdayError: false
+    bdayError: false,
+    anyError: false
   }
 
   generateBodyDict = () => {
@@ -77,11 +78,14 @@ class SignUp extends Component {
     var periodErrorCheck = this.state.period === "0";
     var countryErrorCheck = this.state.country === "";
     var emailErrorCheck = !(this.state.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/));
-    var passwordErrorCheck = !(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})").test(this.state.password));
-    var firstNameErrorCheck = !((/^[A-Za-z0-9-]/).test(this.state.firstName));
-    var lastNameErrorCheck = !((/^[A-Za-z0-9-]/).test(this.state.lastName));
-    var phoneNumErrorCheck;
-    var bdayErrorCheck;
+    // var passwordErrorCheck = !(RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})").test(this.state.password));
+    // var firstNameErrorCheck = !((/^[A-Za-z0-9-]/).test(this.state.firstName));
+    // var lastNameErrorCheck = !((/^[A-Za-z0-9-]/).test(this.state.lastName));
+    var passwordErrorCheck = false;
+    var firstNameErrorCheck = false;
+    var lastNameErrorCheck = false;
+    var phoneNumErrorCheck = false;
+    var bdayErrorCheck = false;
 
     if (tierErrorCheck || periodErrorCheck || countryErrorCheck || emailErrorCheck || passwordErrorCheck || firstNameErrorCheck || lastNameErrorCheck || phoneNumErrorCheck || bdayErrorCheck) {
       this.setState({
@@ -93,10 +97,23 @@ class SignUp extends Component {
         firstNameError: firstNameErrorCheck,
         lastNameError: lastNameErrorCheck,
         phoneNumError: phoneNumErrorCheck,
-        bdayError: bdayErrorCheck
+        bdayError: bdayErrorCheck,
+        anyError: true
       })
       return {}
     } else {
+      this.setState({
+        tierError: false,
+        periodError: false,
+        countryError: false,
+        emailError: false,
+        passwordError: false,
+        firstNameError: false,
+        lastNameError: false,
+        phoneNumError: false,
+        bdayError: false,
+        anyError: false
+      })
       return {
         "email": this.state.email,
         "password": this.state.password,
@@ -107,24 +124,26 @@ class SignUp extends Component {
         "countryCode": this.state.country[1],
         "bday": this.state.bday,
         "tier": this.state.tier,
-        "period": this.state.period
+        "period": this.state.period,
       }
     }
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.tier, this.state.tierError);
-    this.generateBodyDict();
-
-    // fetch('http://localhost:6969/', {
-    //   method: "POST",
-    //   mode: "cors",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(this.state)
-    // })
+    var resBody = this.generateBodyDict();
+    if (resBody === {}) {
+      return;
+    } else {
+      fetch('http://localhost:6969/admin', {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(resBody)
+      }).then(res => res.json())
+    }
   }
 
   handleChange = name => event => {
@@ -199,12 +218,15 @@ class SignUp extends Component {
               </FormControl>
               <FormControl required margin="normal" fullWidth>
                 <InputLabel htmlFor="period-native-required">Subscription Period</InputLabel>
-                <Select native value={this.state.period} onChange={this.handleChange('period')} name="period" inputProps={{ id: 'period-native-required' }}>
+                <Select error={this.state.periodError} native value={this.state.period} onChange={this.handleChange('period')} name="period" inputProps={{ id: 'period-native-required' }}>
                   <option value={0}></option>
                   <option value={1}>Monthly</option>
                   <option value={2}>Annual (Save 15% More!)</option>
                 </Select>
                 {this.state.periodError === true ? <FormHelperText error>You must select a subscription period</FormHelperText> : null}
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                {this.state.anyError === true ? <FormHelperText error>An error occurred, please check the red fields</FormHelperText> : null}
               </FormControl>
               <Button
                 type="submit"
