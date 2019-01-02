@@ -132,17 +132,18 @@ class SignUp extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     var resBody = this.generateBodyDict();
+    console.log(resBody["password"]);
     if (resBody === {}) {
       return;
     } else {
-      fetch('http://localhost:6969/admin', {
+      fetch('http://localhost:6969/api/admin', {
         method: "POST",
         mode: "cors",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(resBody)
-      }).then(res => res.json())
+      }).then(res => res.json()).then(json => console.log(json))
     }
   }
 
