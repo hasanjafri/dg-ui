@@ -11,34 +11,36 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
+let current_path = window.location.pathname;
+
 export const mainListItems = (
   <div>
     <ListSubheader inset>Project Statistics</ListSubheader>
-    <ListItem button onClick={() => history.push('/dashboard')}>
+    <ListItem selected={current_path === '/dashboard'? true : false} button onClick={() => history.push('/dashboard')}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
-    <ListItem button>
+    <ListItem button selected={current_path === '/dashboard/instructions'? true : false}>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Instructions" />
     </ListItem>
-    <ListItem button>
+    <ListItem button selected={current_path === '/dashboard/orderinput'? true : false}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Order Input" />
     </ListItem>
-    <ListItem button>
+    <ListItem button selected={current_path === '/dashboard/suppliers'? true : false}>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Suppliers" />
     </ListItem>
-    <ListItem button>
+    <ListItem button selected={current_path === '/dashboard/analytics'? true : false}>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
@@ -50,23 +52,29 @@ export const mainListItems = (
 export const secondaryListItems = (
   <div>
     <ListSubheader inset>Project Roles</ListSubheader>
-    <ListItem button>
+    <ListItem button selected={current_path === '/dashboard/projects/add'? true : false} onClick={() => history.push('/dashboard/projects/add')}>
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Add Project" />
+    </ListItem>
+    <ListItem button selected={current_path === '/dashboard/users'? true : false}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="View All Users" />
     </ListItem>
-    <ListItem button>
+    <ListItem button selected={current_path === '/dashboard/users/add'? true : false} onClick={() => history.push('/dashboard/users/add')}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Add A User" />
+      <ListItemText primary="Add User" />
     </ListItem>
-    <ListItem button>
+    <ListItem button selected={current_path === '/dashboard/users/edit'? true : false}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Edit A User" />
+      <ListItemText primary="Edit Users" />
     </ListItem>
   </div>
 );
@@ -74,7 +82,7 @@ export const secondaryListItems = (
 export const thirdListItems = (
   <div>
     <ListSubheader inset>Other</ListSubheader>
-    <ListItem button>
+    <ListItem button selected={current_path === '/dashboard/contactus'? true : false}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>

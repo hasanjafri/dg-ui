@@ -8,6 +8,8 @@ import SignUp from './pages/signup';
 import Team from './pages/team';
 
 import Dashboard from './pages/dashboard/views/dashboard';
+import AddUser from './pages/dashboard/views/adduser';
+import AddProject from './pages/dashboard/views/addproject';
 
 const Routes = () => {
     return(
@@ -18,6 +20,8 @@ const Routes = () => {
             <Route path="/register" exact component={SignUp}/>
             <Route path="/team" exact component={Team}/>
             <Route path="/dashboard" exact component={Dashboard}/>
+            <Route path="/dashboard/users/add" exact component={AddUser}/>
+            <Route path="/dashboard/projects/add" exact component={AddProject}/>
         </Switch>
     )
 }
