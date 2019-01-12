@@ -47,13 +47,63 @@ const styles = theme => ({
 class AddProject extends React.Component {
     state = {
         projectName: '',
-        projectAddress: ''
+        projectNameError: false,
+        projectAddress: '',
+        projectAddressError: false
     }
 
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value
         });
+    }
+
+    loadAdminProjects = () => {
+        fetch('http://192.168.99.100:6969/api/project', {
+            mode: 'cors',
+        })
+        .then(res => res.json()).then(responseJson => {
+            console.log('Success:', JSON.stringify(responseJson))
+        }).catch(error => console.error('Error:', error));
+    }
+
+    generateBodyDict = () => {
+        let projectNameCheck = this.state.projectName === "";
+        let projectAddressCheck = this.state.projectAddress === "";
+
+        if (projectNameCheck || projectAddressCheck) {
+            this.setState({
+                projectNameError: projectNameCheck,
+                projectAddressError: projectAddressCheck
+            })
+            return {}
+        } else {
+            this.setState({
+                projectNameError: false,
+                projectAddressError: false
+            })
+            return {
+                "project_name": this.state.projectName,
+                "project_address": this.state.projectAddress
+            }
+        }
+    }
+
+    addProject = (event) => {
+        event.preventDefault();
+        let resBody = this.generateBodyDict();
+        if (resBody === {}) {
+            return;
+        } else {
+            fetch('http://192.168.99.100:6969/api/project', {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(resBody)
+            }).then(res => res.json()).then(json => console.log(json)).catch(error => console.error('Error:', error));
+        }
     }
 
     render() {
@@ -69,7 +119,7 @@ class AddProject extends React.Component {
                             <Typography component="h1" variant="h6">
                                 Add Project
                             </Typography>
-                            <form className={classes.form} onSubmit={this.handleSubmit}>
+                            <form className={classes.form} onSubmit={this.addProject}>
                                 <FormControl margin="normal" required fullWidth>
                                     <InputLabel htmlFor="projectName">Project Name</InputLabel>
                                     <Input value={this.state.projectName} onChange={this.handleChange('projectName')} name="projectName" id="projectName" disableUnderline/>

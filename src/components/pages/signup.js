@@ -143,7 +143,7 @@ class SignUp extends Component {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(resBody)
-      }).then(res => res.json()).then(json => console.log(json))
+      }).then(res => res.json()).then(json => console.log(json)).catch(error => console.error('Error:', error));
     }
   }
 
