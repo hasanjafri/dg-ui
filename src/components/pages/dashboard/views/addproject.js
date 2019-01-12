@@ -6,6 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
+import ProjectsTable from '../projectstable';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -20,11 +21,8 @@ const styles = theme => ({
       height: '100vh',
       overflow: 'auto',
     },
-    tableContainer: {
-      height: 320,
-    },
     paper: {
-        marginTop: theme.spacing.unit * 8,
+        marginTop: theme.spacing.unit * 4,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -38,6 +36,9 @@ const styles = theme => ({
     submit: {
         marginTop: theme.spacing.unit * 3,
     },
+    projectTitle: {
+        margin: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`
+    }
 })
 
 class AddProject extends React.Component {
@@ -79,6 +80,10 @@ class AddProject extends React.Component {
                                 </Button>
                             </form>
                         </Paper>
+                        <Typography component="h1" variant="h6" className={classes.projectTitle}>
+                            My Projects
+                        </Typography>
+                        <ProjectsTable/>
                     </main>
                 </div>
                 <Footer/>
