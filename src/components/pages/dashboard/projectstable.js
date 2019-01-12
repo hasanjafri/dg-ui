@@ -10,12 +10,14 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = {
     root: {
-        width: '100%',
+        width: '66%',
         overflowX: 'auto',
         margin: '20px',
+        alignItems: 'center'
     },
     table: {
-        minWidth: 350
+        minWidth: 350,
+        textAlign: 'center',
     },
 };
 

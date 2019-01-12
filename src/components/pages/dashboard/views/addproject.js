@@ -20,6 +20,9 @@ const styles = theme => ({
       padding: theme.spacing.unit * 3,
       height: '100vh',
       overflow: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
     },
     paper: {
         marginTop: theme.spacing.unit * 4,
