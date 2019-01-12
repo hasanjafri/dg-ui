@@ -3,6 +3,7 @@ import Footer from '../footer';
 import SideNavBar from '../sidenavbar';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
@@ -123,10 +124,12 @@ class AddProject extends React.Component {
                                 <FormControl margin="normal" required fullWidth>
                                     <InputLabel htmlFor="projectName">Project Name</InputLabel>
                                     <Input value={this.state.projectName} onChange={this.handleChange('projectName')} name="projectName" id="projectName" disableUnderline/>
+                                    {this.state.projectNameError === true ? <FormHelperText error>You must enter a unique project name</FormHelperText> : null}
                                 </FormControl>
                                 <FormControl margin="normal" required fullWidth>
                                     <InputLabel htmlFor="address">Address</InputLabel>
                                     <Input value={this.state.projectAddress} onChange={this.handleChange('projectAddress')} name="projectAddress" id="projectAddress" disableUnderline/>
+                                    {this.state.projectAddressError === true ? <FormHelperText error>You must enter an address for this project</FormHelperText> : null}
                                 </FormControl>
                                 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                                     Add project
