@@ -12,9 +12,10 @@ const styles = {
     root: {
         width: '100%',
         overflowX: 'auto',
+        margin: '20px',
     },
     table: {
-        minWidth: 700
+        minWidth: 350
     },
 };
 
