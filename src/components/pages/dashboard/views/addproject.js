@@ -50,7 +50,10 @@ class AddProject extends React.Component {
         projectName: '',
         projectNameError: false,
         projectAddress: '',
-        projectAddressError: false
+        projectAddressError: false,
+        postalCode: '',
+        postalCodeError: false,
+        projects: null
     }
 
     handleChange = name => event => {
@@ -68,24 +71,32 @@ class AddProject extends React.Component {
         }).catch(error => console.error('Error:', error));
     }
 
+    componentDidMount() {
+        this.loadAdminProjects();
+    }
+
     generateBodyDict = () => {
         let projectNameCheck = this.state.projectName === "";
         let projectAddressCheck = this.state.projectAddress === "";
+        let postalCodeCheck = this.state.postalCode === "";
 
-        if (projectNameCheck || projectAddressCheck) {
+        if (projectNameCheck || projectAddressCheck || postalCodeCheck) {
             this.setState({
                 projectNameError: projectNameCheck,
-                projectAddressError: projectAddressCheck
+                projectAddressError: projectAddressCheck,
+                postalCodeError: postalCodeCheck
             })
             return {}
         } else {
             this.setState({
                 projectNameError: false,
-                projectAddressError: false
+                projectAddressError: false,
+                postalCodeError: false
             })
             return {
                 "project_name": this.state.projectName,
-                "project_address": this.state.projectAddress
+                "project_address": this.state.projectAddress,
+                "postal_code": this.state.postalCode
             }
         }
     }
@@ -130,6 +141,11 @@ class AddProject extends React.Component {
                                     <InputLabel htmlFor="address">Address</InputLabel>
                                     <Input value={this.state.projectAddress} onChange={this.handleChange('projectAddress')} name="projectAddress" id="projectAddress" disableUnderline/>
                                     {this.state.projectAddressError === true ? <FormHelperText error>You must enter an address for this project</FormHelperText> : null}
+                                </FormControl>
+                                <FormControl margin="normal" required fullWidth>
+                                    <InputLabel htmlFor="address">Postal Code</InputLabel>
+                                    <Input value={this.state.postalCode} onChange={this.handleChange('postalCode')} name="postalCode" id="postalCode" disableUnderline/>
+                                    {this.state.postalCodeError === true ? <FormHelperText error>You must enter a postal code for this project</FormHelperText> : null}
                                 </FormControl>
                                 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                                     Add project
