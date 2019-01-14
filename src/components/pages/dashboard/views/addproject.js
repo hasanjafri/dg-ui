@@ -4,6 +4,7 @@ import SideNavBar from '../sidenavbar';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import history from '../../../history';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
@@ -65,9 +66,17 @@ class AddProject extends React.Component {
     loadAdminProjects = () => {
         fetch('http://192.168.99.100:6969/api/project', {
             mode: 'cors',
+            credentials: 'include'
         })
         .then(res => res.json()).then(responseJson => {
-            console.log('Success:', JSON.stringify(responseJson))
+            if (responseJson.error) {
+                history.push('/login')
+            } else if (responseJson.projects) {
+                this.setState({
+                    projects: responseJson.projects
+                });
+                console.log(responseJson.projects);
+            }
         }).catch(error => console.error('Error:', error));
     }
 
@@ -110,6 +119,7 @@ class AddProject extends React.Component {
             fetch('http://192.168.99.100:6969/api/project', {
                 method: 'POST',
                 mode: 'cors',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
