@@ -90,7 +90,7 @@ class SignUp extends Component {
     var lastNameErrorCheck = false;
     var phoneNumErrorCheck = false;
     var bdayErrorCheck = false;
-    var securityAnswerErrorCheck = false;
+    var securityAnswerErrorCheck = this.state.securityAnswer === "";
 
     if (tierErrorCheck || periodErrorCheck || countryErrorCheck || emailErrorCheck || passwordErrorCheck || firstNameErrorCheck || lastNameErrorCheck || phoneNumErrorCheck || bdayErrorCheck || securityAnswerErrorCheck) {
       this.setState({
@@ -158,11 +158,7 @@ class SignUp extends Component {
             respError: json
           });
         }
-      }).catch(error => {
-        this.setState({
-          respError: error
-        });
-      });
+      }).catch(error => console.error('Error: ', error));
     }
   }
 
