@@ -5,12 +5,15 @@ import Button from '@material-ui/core/Button';
 import Footer from '../footer';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText'
+import history from '../history';
 import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import NavBar from '../navbar';
 import Paper from '@material-ui/core/Paper';
+import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -51,13 +54,60 @@ class SignIn extends Component {
     email: '',
     password: '',
     accountType: '',
-    authError: false
+    accountTypeError: false,
+    authError: ''
+  }
+
+  generateBodyDict = () => {
+    var accountTypeErrorCheck = this.state.accountType === "";
+
+    if (accountTypeErrorCheck) {
+      this.setState({
+        accountTypeError: true
+      })
+      return {}
+    } else {
+      this.setState({
+        accountTypeError: false
+      })
+      return {
+        "username": this.state.email,
+        "password": this.state.password,
+        "account_type": this.state.accountType
+      }
+    }
   }
 
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
     })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.state);
+    var resBody = this.generateBodyDict();
+    if (resBody === {}) {
+      return;
+    } else {
+      fetch('http://192.168.99.100:6969/api/auth', {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(resBody)
+      }).then(res => res.json()).then(json => {
+        if (json.msg === 'success') {
+          history.push('/dashboard')
+        } else {
+          this.setState({
+            authError: json
+          });
+        }
+      }).catch(error => console.error('Error: ', error));
+    }
   }
 
   render() {
@@ -74,7 +124,7 @@ class SignIn extends Component {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <form className={classes.form}>
+            <form className={classes.form} onSubmit={this.handleSubmit}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
                 <Input value={this.state.email} onChange={this.handleChange('email')} id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
@@ -85,14 +135,15 @@ class SignIn extends Component {
               </FormControl>
               <FormControl required margin="normal" fullWidth>
                 <InputLabel htmlFor="accountType-required">Account Type</InputLabel>
-                <Select value={this.state.accountType} onChange={this.handleChange('accountType')} name="accountType" inputProps={{ id: 'accountType-required' }}>
-                  <option value={0}></option>
-                  <option value={1}>Admin</option>
-                  <option value={2}>User</option>
+                <Select error={this.state.accountTypeError === true} value={this.state.accountType} onChange={this.handleChange('accountType')} name="accountType" inputProps={{ id: 'accountType-required' }}>
+                  <option value={''}></option>
+                  <option value={'admin'}>Admin</option>
+                  <option value={'user'}>User</option>
                 </Select>
+                {this.state.accountTypeError === true ? <FormHelperText error>Please select an account type</FormHelperText> : null}
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                {this.state.authError === true ? <FormHelperText error>Wrong username or password</FormHelperText> : null}
+                {this.state.authError !== "" ? <FormHelperText error>Invalid username or password</FormHelperText> : null}
               </FormControl>
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
