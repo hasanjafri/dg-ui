@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Footer from '../footer';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import history from '../history';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -60,6 +61,7 @@ class SignUp extends Component {
     phoneNum: '',
     country: '',
     bday: '',
+    securityAnswer: '',
     tierError: false,
     periodError: false,
     emailError: false,
@@ -69,7 +71,9 @@ class SignUp extends Component {
     phoneNumError: false,
     countryError: false,
     bdayError: false,
-    anyError: false
+    anyError: false,
+    securityAnswerError: false,
+    respError: ''
   }
 
   generateBodyDict = () => {
@@ -86,8 +90,9 @@ class SignUp extends Component {
     var lastNameErrorCheck = false;
     var phoneNumErrorCheck = false;
     var bdayErrorCheck = false;
+    var securityAnswerErrorCheck = false;
 
-    if (tierErrorCheck || periodErrorCheck || countryErrorCheck || emailErrorCheck || passwordErrorCheck || firstNameErrorCheck || lastNameErrorCheck || phoneNumErrorCheck || bdayErrorCheck) {
+    if (tierErrorCheck || periodErrorCheck || countryErrorCheck || emailErrorCheck || passwordErrorCheck || firstNameErrorCheck || lastNameErrorCheck || phoneNumErrorCheck || bdayErrorCheck || securityAnswerErrorCheck) {
       this.setState({
         tierError: tierErrorCheck,
         periodError: periodErrorCheck,
@@ -98,6 +103,7 @@ class SignUp extends Component {
         lastNameError: lastNameErrorCheck,
         phoneNumError: phoneNumErrorCheck,
         bdayError: bdayErrorCheck,
+        securityAnswerError: securityAnswerErrorCheck,
         anyError: true
       })
       return {}
@@ -112,6 +118,7 @@ class SignUp extends Component {
         lastNameError: false,
         phoneNumError: false,
         bdayError: false,
+        securityAnswerError: false,
         anyError: false
       })
       return {
@@ -125,6 +132,7 @@ class SignUp extends Component {
         "bday": this.state.bday,
         "tier": this.state.tier,
         "period": this.state.period,
+        "security_answer": this.state.securityAnswer
       }
     }
   }
@@ -132,18 +140,29 @@ class SignUp extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     var resBody = this.generateBodyDict();
-    console.log(resBody["password"]);
     if (resBody === {}) {
       return;
     } else {
-      fetch('http://localhost:6969/api/admin', {
+      fetch('http://192.168.99.100:6969/api/admin', {
         method: "POST",
         mode: "cors",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(resBody)
-      }).then(res => res.json()).then(json => console.log(json)).catch(error => console.error('Error:', error));
+      }).then(res => res.json()).then(json => {
+        if (json.success === 'true') {
+          history.push('/login');
+        } else {
+          this.setState({
+            respError: json
+          });
+        }
+      }).catch(error => {
+        this.setState({
+          respError: error
+        });
+      });
     }
   }
 
@@ -208,8 +227,8 @@ class SignUp extends Component {
                 <Input value={this.state.bday} onChange={this.handleChange('bday')} name="bday" type="date" id="bday" autoComplete="bday" disableUnderline/>
               </FormControl>
               <FormControl required margin="normal" fullWidth>
-                <InputLabel htmlFor="tier-native-required">Subscription Tier</InputLabel>
-                <Select error={this.state.tierError} native value={this.state.tier} onChange={this.handleChange('tier')} name="tier" inputProps={{ id: 'tier-native-required' }}>
+                <InputLabel htmlFor="tier-required">Subscription Tier</InputLabel>
+                <Select error={this.state.tierError} value={this.state.tier} onChange={this.handleChange('tier')} name="tier" inputProps={{ id: 'tier-required' }}>
                   <option value={0}></option>
                   <option value={1}>Premium</option>
                   <option value={2}>Elite</option>
@@ -218,16 +237,22 @@ class SignUp extends Component {
                 {this.state.tierError === true ? <FormHelperText error>You must select a subscription tier</FormHelperText> : null}
               </FormControl>
               <FormControl required margin="normal" fullWidth>
-                <InputLabel htmlFor="period-native-required">Subscription Period</InputLabel>
-                <Select error={this.state.periodError} native value={this.state.period} onChange={this.handleChange('period')} name="period" inputProps={{ id: 'period-native-required' }}>
+                <InputLabel htmlFor="period-required">Subscription Period</InputLabel>
+                <Select error={this.state.periodError} value={this.state.period} onChange={this.handleChange('period')} name="period" inputProps={{ id: 'period-required' }}>
                   <option value={0}></option>
                   <option value={1}>Monthly</option>
                   <option value={2}>Annual (Save 15% More!)</option>
                 </Select>
                 {this.state.periodError === true ? <FormHelperText error>You must select a subscription period</FormHelperText> : null}
               </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="securityAnswer">What's your mother's maiden name?</InputLabel>
+                <Input value={this.state.securityAnswer} onChange={this.handleChange('securityAnswer')} name="securityAnswer" type="text" id="securityAnswer" disableUnderline/>
+                {this.state.securityAnswerError === true ? <FormHelperText error>Answer must be at least 6 characters long</FormHelperText> : null}
+              </FormControl>
               <FormControl margin="normal" fullWidth>
                 {this.state.anyError === true ? <FormHelperText error>An error occurred, please check the red fields</FormHelperText> : null}
+                {this.state.respError !== '' ? <FormHelperText error>{this.state.respError}</FormHelperText> : null}
               </FormControl>
               <Button
                 type="submit"
