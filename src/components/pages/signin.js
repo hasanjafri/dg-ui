@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -46,48 +46,74 @@ const styles = theme => ({
   },
 });
 
-function SignIn(props) {
-  const { classes } = props;
+class SignIn extends Component {
+  state={
+    email: '',
+    password: '',
+    accountType: '',
+    authError: false
+  }
 
-  return (
-    <React.Fragment>
-      <NavBar/>
-      <main className={classes.main}>
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form className={classes.form}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" disableUnderline/>
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value
+    })
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <React.Fragment>
+        <NavBar/>
+        <main className={classes.main}>
+          <Paper className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
               Sign in
-            </Button>
-          </form>
-        </Paper>
-      </main>
-      <Footer/>
-    </React.Fragment>
-  );
+            </Typography>
+            <form className={classes.form}>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="email">Email Address</InputLabel>
+                <Input value={this.state.email} onChange={this.handleChange('email')} id="email" name="email" autoComplete="email" autoFocus disableUnderline/>
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <Input value={this.state.password} onChange={this.handleChange('password')} name="password" type="password" id="password" autoComplete="current-password" disableUnderline/>
+              </FormControl>
+              <FormControl required margin="normal" fullWidth>
+                <InputLabel htmlFor="accountType-required">Account Type</InputLabel>
+                <Select value={this.state.accountType} onChange={this.handleChange('accountType')} name="accountType" inputProps={{ id: 'accountType-required' }}>
+                  <option value={0}></option>
+                  <option value={1}>Admin</option>
+                  <option value={2}>User</option>
+                </Select>
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                {this.state.authError === true ? <FormHelperText error>Wrong username or password</FormHelperText> : null}
+              </FormControl>
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign in
+              </Button>
+            </form>
+          </Paper>
+        </main>
+        <Footer/>
+      </React.Fragment>
+    );
+  }
 }
 
 SignIn.propTypes = {
