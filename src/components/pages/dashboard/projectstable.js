@@ -31,18 +31,20 @@ function ProjectsTable(props) {
                 <TableRow>
                     <TableCell>Project Name</TableCell>
                     <TableCell>Address</TableCell>
+                    <TableCell>Postal Code</TableCell>
                     <TableCell align="right"># of Users</TableCell>
                     <TableCell align="right">Last Updated</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {projectsData !== undefined && projectsData.map((n, i) => {
+                {projectsData !== null && projectsData.map((n, i) => {
                     return (
                     <TableRow key={i}>
                         <TableCell component="th" scope="row">
                         {n.project_name}
                         </TableCell>
                         <TableCell>{n.address}</TableCell>
+                        <TableCell>{n.postal_code}</TableCell>
                         <TableCell align="right">{n.num_users}</TableCell>
                         <TableCell align="right">{n.last_updated}</TableCell>
                     </TableRow>

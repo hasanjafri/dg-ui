@@ -64,7 +64,7 @@ class AddProject extends React.Component {
     }
 
     loadAdminProjects = () => {
-        fetch('http://localhost:6969/api/project', {
+        fetch('http://192.168.99.100:6969/api/project', {
             mode: 'cors',
             credentials: 'include'
         })
@@ -116,7 +116,7 @@ class AddProject extends React.Component {
         if (resBody === {}) {
             return;
         } else {
-            fetch('http://localhost:6969/api/project', {
+            fetch('http://192.168.99.100:6969/api/project', {
                 method: 'POST',
                 mode: 'cors',
                 credentials: 'include',
@@ -124,7 +124,13 @@ class AddProject extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(resBody)
-            }).then(res => res.json()).then(json => console.log(json)).catch(error => console.error('Error:', error));
+            }).then(res => res.json()).then(json => {
+                if (json.error) {
+                    history.push('/login')
+                } else if (json.msg.includes('successfully')) {
+                    this.loadAdminProjects();
+                }
+            }).catch(error => console.error('Error:', error));
         }
     }
 
@@ -165,7 +171,7 @@ class AddProject extends React.Component {
                         <Typography component="h1" variant="h6" className={classes.projectTitle}>
                             My Projects
                         </Typography>
-                        <ProjectsTable/>
+                        <ProjectsTable projectsData={this.state.projects}/>
                     </main>
                 </div>
                 <Footer/>

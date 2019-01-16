@@ -143,7 +143,7 @@ class SignUp extends Component {
     if (resBody === {}) {
       return;
     } else {
-      fetch('http://localhost:6969/api/admin', {
+      fetch('http://192.168.99.100:6969/api/admin', {
         method: "POST",
         mode: "cors",
         credentials: 'include',
