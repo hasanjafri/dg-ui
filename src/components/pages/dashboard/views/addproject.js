@@ -64,7 +64,7 @@ class AddProject extends React.Component {
     }
 
     loadAdminProjects = () => {
-        fetch('http://192.168.99.100:6969/api/project', {
+        fetch('http://localhost:6969/api/project', {
             mode: 'cors',
             credentials: 'include'
         })
@@ -116,7 +116,7 @@ class AddProject extends React.Component {
         if (resBody === {}) {
             return;
         } else {
-            fetch('http://192.168.99.100:6969/api/project', {
+            fetch('http://localhost:6969/api/project', {
                 method: 'POST',
                 mode: 'cors',
                 credentials: 'include',

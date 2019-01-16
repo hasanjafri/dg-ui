@@ -91,9 +91,10 @@ class SignIn extends Component {
     if (resBody === {}) {
       return;
     } else {
-      fetch('http://192.168.99.100:6969/api/auth', {
+      fetch('http://localhost:6969/api/auth', {
         method: "POST",
         mode: "cors",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json"
         },
