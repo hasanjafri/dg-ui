@@ -52,23 +52,17 @@ export const mainListItems = (
 export const secondaryListItems = (
   <div>
     <ListSubheader inset>Project Roles</ListSubheader>
-    <ListItem button selected={current_path === '/dashboard/projects/add'? true : false} onClick={() => history.push('/dashboard/projects/add')}>
+    <ListItem button selected={current_path === '/dashboard/projects'? true : false} onClick={() => history.push('/dashboard/projects')}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Add Project" />
+      <ListItemText primary="Projects" />
     </ListItem>
-    <ListItem button selected={current_path === '/dashboard/users'? true : false}>
+    <ListItem button selected={current_path === '/dashboard/users'? true : false} onClick={() => history.push('/dashboard/users')}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="View All Users" />
-    </ListItem>
-    <ListItem button selected={current_path === '/dashboard/users/add'? true : false} onClick={() => history.push('/dashboard/users/add')}>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Add User" />
+      <ListItemText primary="Add Users" />
     </ListItem>
     <ListItem button selected={current_path === '/dashboard/users/edit'? true : false}>
       <ListItemIcon>

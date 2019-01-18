@@ -20,8 +20,8 @@ const Routes = () => {
             <Route path="/register" exact component={SignUp}/>
             <Route path="/team" exact component={Team}/>
             <Route path="/dashboard" exact component={Dashboard}/>
-            <Route path="/dashboard/users/add" exact component={AddUser}/>
-            <Route path="/dashboard/projects/add" exact component={AddProject}/>
+            <Route path="/dashboard/users" exact component={AddUser}/>
+            <Route path="/dashboard/projects" exact component={AddProject}/>
         </Switch>
     )
 }

@@ -33,6 +33,7 @@ const styles = theme => ({
         alignItems: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
         maxWidth: '400px',
+        height: '100%'
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -42,7 +43,7 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3,
     },
     projectTitle: {
-        margin: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`
+        margin: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
     }
 })
 
@@ -125,6 +126,7 @@ class AddProject extends React.Component {
                 },
                 body: JSON.stringify(resBody)
             }).then(res => res.json()).then(json => {
+                console.log(json);
                 if (json.error) {
                     history.push('/login')
                 } else if (json.msg.includes('successfully')) {
