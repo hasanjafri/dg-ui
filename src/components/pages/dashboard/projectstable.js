@@ -30,9 +30,9 @@ function ProjectsTable(props) {
                 <TableHead>
                 <TableRow>
                     <TableCell>Project Name</TableCell>
-                    <TableCell align="right">Address</TableCell>
-                    <TableCell align="right">Postal Code</TableCell>
-                    <TableCell align="right"># of Users</TableCell>
+                    <TableCell align="center">Address</TableCell>
+                    <TableCell align="center">Postal Code</TableCell>
+                    <TableCell align="center"># of Users</TableCell>
                     <TableCell align="right">Last Updated</TableCell>
                 </TableRow>
                 </TableHead>
@@ -43,9 +43,9 @@ function ProjectsTable(props) {
                         <TableCell component="th" scope="row">
                         {n.project_name}
                         </TableCell>
-                        <TableCell>{n.address}</TableCell>
-                        <TableCell>{n.postal_code}</TableCell>
-                        <TableCell align="right">{n.num_users}</TableCell>
+                        <TableCell align="center">{n.address}</TableCell>
+                        <TableCell align="center">{n.postal_code}</TableCell>
+                        <TableCell align="center">{n.num_users}</TableCell>
                         <TableCell align="right">{n.last_updated}</TableCell>
                     </TableRow>
                     );

@@ -30,8 +30,8 @@ function UsersTable(props) {
         <TableHead>
           <TableRow>
             <TableCell>Username</TableCell>
-            <TableCell align="right">Created At</TableCell>
-            <TableCell align="right">Last Logged In</TableCell>
+            <TableCell align="center">Created At</TableCell>
+            <TableCell align="center">Last Logged In</TableCell>
             <TableCell align="right">Permissions</TableCell>
           </TableRow>
         </TableHead>
@@ -42,8 +42,8 @@ function UsersTable(props) {
                 <TableCell component="th" scope="row">
                   {n.username}
                 </TableCell>
-                <TableCell align="right">{n.created_at}</TableCell>
-                <TableCell align="right">{n.last_logged_in}</TableCell>
+                <TableCell align="center">{n.created_at}</TableCell>
+                <TableCell align="center">{n.last_logged_in}</TableCell>
                 <TableCell align="right">{n.permissions.join().replace(',', ', ')}</TableCell>
               </TableRow>
             );
