@@ -3,6 +3,7 @@ import Footer from '../footer';
 import SideNavBar from '../sidenavbar';
 import FormControl from '@material-ui/core/FormControl';
 import history from '../../../history';
+import Chip from '@material-ui/core/Chip';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,6 +12,23 @@ import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const permissions = [
+    'Order Input',
+    'Supplier Input',
+    'Recipe Input',
+];
 
 const styles = theme => ({
     root: {
@@ -44,8 +62,24 @@ const styles = theme => ({
     },
     projectTitle: {
         margin: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-    }
+    },
+    chips: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    chip: {
+        margin: theme.spacing.unit / 4,
+    },
 })
+
+function getStyles(name, that) {
+    return {
+      fontWeight:
+        that.state.permissions.indexOf(name) === -1
+          ? that.props.theme.typography.fontWeightRegular
+          : that.props.theme.typography.fontWeightMedium,
+    };
+};
 
 class AddUser extends React.Component {
     state = {
@@ -100,8 +134,8 @@ class AddUser extends React.Component {
                             </Typography>
                             <form className={classes.form} onSubmit={this.handleSubmit}>
                                 <FormControl margin="normal" required fullWidth>
-                                    <Select value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }} className={classes.selectEmpty}>
-                                        <MenuItem value=""><em>None</em></MenuItem>
+                                    <InputLabel htmlFor="projectId">Select a Project</InputLabel>
+                                    <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }} className={classes.selectEmpty}>
                                         {this.state.projects != null && this.state.projects.map((project, i) => (
                                             <MenuItem key={i} value={project.id}>
                                                 {project.project_name}
@@ -109,19 +143,30 @@ class AddUser extends React.Component {
                                         ))}
                                     </Select>
                                 </FormControl>
-                                <FormControl margin="normal" required fullWidth>
-                                    <InputLabel htmlFor="user-permissions">User Permissions</InputLabel>
+                                <FormControl disabled={this.state.projectId === ""} margin="normal" required fullWidth>
+                                    <InputLabel htmlFor="username">Email Address</InputLabel>
+                                    <Input value={this.state.username} onChange={this.handleChange('username')} id="username" name="username" disableUnderline/>
                                 </FormControl>
-                                <FormControl margin="normal" required fullWidth>
-                                    <InputLabel htmlFor="email">Email Address</InputLabel>
-                                    <Input value={this.state.email} onChange={this.handleChange('email')} id="email" name="email" autoFocus disableUnderline/>
-                                </FormControl>
-                                <FormControl margin="normal" required fullWidth>
+                                <FormControl disabled={this.state.projectId === ""} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="password">Password</InputLabel>
                                     <Input value={this.state.password} onChange={this.handleChange('password')} name="password" type="password" id="password" disableUnderline/>
                                 </FormControl>
-                                <FormControl>
-
+                                <FormControl disabled={this.state.projectId === ""} margin="normal" required fullWidth>
+                                    <InputLabel htmlFor="user-permissions">User Permissions</InputLabel>
+                                    <Select multiple value={this.state.permissions} onChange={this.handleChange('permissions')} input={<Input id="user-permissions" />}
+                                            renderValue={selected => (
+                                                <div className={classes.chips}>
+                                                    {selected.map(value => (
+                                                        <Chip key={value} label={value} className={classes.chip}/>
+                                                    ))}
+                                                </div>
+                                            )} MenuProps={MenuProps}>
+                                                        {permissions.map(permission => (
+                                                            <MenuItem key={permission} value={permission} style={getStyles(permission, this)}>
+                                                                {permission}
+                                                            </MenuItem>
+                                                        ))}
+                                            </Select>
                                 </FormControl>
                             </form>
                         </Paper>

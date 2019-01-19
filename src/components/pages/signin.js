@@ -146,10 +146,6 @@ class SignIn extends Component {
               <FormControl margin="normal" fullWidth>
                 {this.state.authError !== "" ? <FormHelperText error>Invalid username or password</FormHelperText> : null}
               </FormControl>
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
               <Button
                 type="submit"
                 fullWidth
