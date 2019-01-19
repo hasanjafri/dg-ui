@@ -50,7 +50,10 @@ class ManageUsers extends React.Component {
             credentials: 'include'
         })
         .then(res => res.json()).then(json => {
-            console.log(json)
+            console.log(json.users)
+            this.setState({
+                users: json
+            });
         }).catch(err => console.error('Error: ', err));
     }
 
@@ -78,11 +81,11 @@ class ManageUsers extends React.Component {
                                 Select Project
                             </Typography>
                             <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }} className={classes.selectEmpty}>
-                                {this.state.users !== null && this.state.users.map((project, i) => (
-                                    <MenuItem key={i} value={project.project.id}>
-                                        {project.project_name}
-                                    </MenuItem>
-                                ))}
+                                {this.state.users !== null && this.state.users.users.map((project, i) => {
+                                    {project[i].length > 0 ? <MenuItem key={i} value={project[i][0].project.id}>
+                                    {project[i][0].project.project_name}
+                                </MenuItem> : null}
+                                })}
                             </Select>
                         </Paper>
                     </main>
