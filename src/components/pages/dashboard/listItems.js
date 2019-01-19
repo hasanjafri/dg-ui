@@ -64,11 +64,11 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="Add Users" />
     </ListItem>
-    <ListItem button selected={current_path === '/dashboard/users/edit'? true : false}>
+    <ListItem button selected={current_path === '/dashboard/users/manage'? true : false} onClick={() => history.push('/dashboard/users/manage')}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Edit Users" />
+      <ListItemText primary="Manage Users" />
     </ListItem>
   </div>
 );

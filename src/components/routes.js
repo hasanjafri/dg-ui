@@ -10,6 +10,7 @@ import Team from './pages/team';
 import Dashboard from './pages/dashboard/views/dashboard';
 import AddUser from './pages/dashboard/views/adduser';
 import AddProject from './pages/dashboard/views/addproject';
+import ManageUsers from './pages/dashboard/views/edituser';
 
 const Routes = () => {
     return(
@@ -22,6 +23,7 @@ const Routes = () => {
             <Route path="/dashboard" exact component={Dashboard}/>
             <Route path="/dashboard/users" exact component={AddUser}/>
             <Route path="/dashboard/projects" exact component={AddProject}/>
+            <Route path="/dashboard/users/manage" exact component={ManageUsers}/>
         </Switch>
     )
 }

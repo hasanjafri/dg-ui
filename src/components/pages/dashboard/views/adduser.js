@@ -3,6 +3,7 @@ import Footer from '../footer';
 import SideNavBar from '../sidenavbar';
 import FormControl from '@material-ui/core/FormControl';
 import history from '../../../history';
+import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
@@ -28,6 +29,7 @@ const permissions = [
     'Order Input',
     'Supplier Input',
     'Recipe Input',
+    'Analytics'
 ];
 
 const styles = theme => ({
@@ -51,7 +53,6 @@ const styles = theme => ({
         alignItems: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
         maxWidth: '400px',
-        height: '100%'
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -60,9 +61,6 @@ const styles = theme => ({
     submit: {
         marginTop: theme.spacing.unit * 3,
     },
-    projectTitle: {
-        margin: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-    },
     chips: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -70,16 +68,12 @@ const styles = theme => ({
     chip: {
         margin: theme.spacing.unit / 4,
     },
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 120,
+        maxWidth: 300,
+    },
 })
-
-function getStyles(name, that) {
-    return {
-      fontWeight:
-        that.state.permissions.indexOf(name) === -1
-          ? that.props.theme.typography.fontWeightRegular
-          : that.props.theme.typography.fontWeightMedium,
-    };
-};
 
 class AddUser extends React.Component {
     state = {
@@ -133,7 +127,7 @@ class AddUser extends React.Component {
                                 Add User
                             </Typography>
                             <form className={classes.form} onSubmit={this.handleSubmit}>
-                                <FormControl margin="normal" required fullWidth>
+                                <FormControl className={classes.formControl} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="projectId">Select a Project</InputLabel>
                                     <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }} className={classes.selectEmpty}>
                                         {this.state.projects != null && this.state.projects.map((project, i) => (
@@ -143,15 +137,15 @@ class AddUser extends React.Component {
                                         ))}
                                     </Select>
                                 </FormControl>
-                                <FormControl disabled={this.state.projectId === ""} margin="normal" required fullWidth>
+                                <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="username">Email Address</InputLabel>
                                     <Input value={this.state.username} onChange={this.handleChange('username')} id="username" name="username" disableUnderline/>
                                 </FormControl>
-                                <FormControl disabled={this.state.projectId === ""} margin="normal" required fullWidth>
+                                <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="password">Password</InputLabel>
                                     <Input value={this.state.password} onChange={this.handleChange('password')} name="password" type="password" id="password" disableUnderline/>
                                 </FormControl>
-                                <FormControl disabled={this.state.projectId === ""} margin="normal" required fullWidth>
+                                <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="user-permissions">User Permissions</InputLabel>
                                     <Select multiple value={this.state.permissions} onChange={this.handleChange('permissions')} input={<Input id="user-permissions" />}
                                             renderValue={selected => (
@@ -162,12 +156,15 @@ class AddUser extends React.Component {
                                                 </div>
                                             )} MenuProps={MenuProps}>
                                                         {permissions.map(permission => (
-                                                            <MenuItem key={permission} value={permission} style={getStyles(permission, this)}>
+                                                            <MenuItem key={permission} value={permission} style={{fontWeight: this.state.permissions.indexOf(permission) === -1 ? 'normal' : 'bold'}}>
                                                                 {permission}
                                                             </MenuItem>
                                                         ))}
                                             </Select>
                                 </FormControl>
+                                <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                                    Add project
+                                </Button>
                             </form>
                         </Paper>
                     </main>
