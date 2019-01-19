@@ -7,10 +7,10 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText'
 import history from '../history';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import LockIcon from '@material-ui/icons/LockOutlined';
+import MenuItem from '@material-ui/core/MenuItem';
 import NavBar from '../navbar';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
@@ -137,9 +137,8 @@ class SignIn extends Component {
               <FormControl required margin="normal" fullWidth>
                 <InputLabel htmlFor="accountType-required">Account Type</InputLabel>
                 <Select error={this.state.accountTypeError === true} value={this.state.accountType} onChange={this.handleChange('accountType')} name="accountType" inputProps={{ id: 'accountType-required' }}>
-                  <option value={''}></option>
-                  <option value={'admin'}>Admin</option>
-                  <option value={'user'}>User</option>
+                  <MenuItem value={'admin'}>Admin</MenuItem>
+                  <MenuItem value={'user'}>User</MenuItem>
                 </Select>
                 {this.state.accountTypeError === true ? <FormHelperText error>Please select an account type</FormHelperText> : null}
               </FormControl>

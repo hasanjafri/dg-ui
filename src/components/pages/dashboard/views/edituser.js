@@ -37,7 +37,10 @@ const styles = theme => ({
         maxWidth: '400px',
     },
     projectTitle: {
-        marginBottom: theme.spacing.unit * 2,
+        marginBottom: theme.spacing.unit,
+    },
+    userTitle: {
+        marginTop: theme.spacing.unit * 6,
     }
 });
 
@@ -66,8 +69,10 @@ class ManageUsers extends React.Component {
     }
 
     handleChange = name => event => {
+        console.log(this.state.users.filter(users => users[0].project.id === event.target.value))
         this.setState({
-            [name]: event.target.value
+            [name]: event.target.value,
+            usersData: this.state.users.filter(users => users[0].project.id === event.target.value)
         });
     }
 
@@ -92,9 +97,10 @@ class ManageUsers extends React.Component {
                                 ))}
                             </Select>
                         </Paper>
-                        <Typography component="h1" variant="h6" className={classes.projectTitle}>
+                        <Typography component="h1" variant="h6" className={classes.userTitle}>
                             Users
                         </Typography>
+                        <UsersTable usersData={this.state.usersData}/>
                     </main>
                 </div>
                 <Footer/>

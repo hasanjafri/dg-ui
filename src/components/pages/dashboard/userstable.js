@@ -36,7 +36,7 @@ function UsersTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {usersData !== null && usersData.map((n, i) => {
+          {usersData !== null && usersData[0].map((n, i) => {
             return (
               <TableRow key={i}>
                 <TableCell component="th" scope="row">
@@ -44,7 +44,7 @@ function UsersTable(props) {
                 </TableCell>
                 <TableCell align="right">{n.created_at}</TableCell>
                 <TableCell align="right">{n.last_logged_in}</TableCell>
-                <TableCell align="right">{n.permissions}</TableCell>
+                <TableCell align="right">{n.permissions.join().replace(',', ', ')}</TableCell>
               </TableRow>
             );
           })}
