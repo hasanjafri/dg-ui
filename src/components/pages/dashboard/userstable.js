@@ -10,54 +10,41 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = {
   root: {
-    width: '100%',
-    overflowX: 'auto',
+      width: '66%',
+      overflowX: 'auto',
+      margin: '20px',
+      alignItems: 'center'
   },
   table: {
-    minWidth: 700,
+      minWidth: 350,
+      textAlign: 'center',
   },
 };
 
-let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-  id += 1;
-  return { id, name, calories, fat, carbs, protein };
-}
-
-const data = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-function SimpleTable(props) {
-  const { classes } = props;
+function UsersTable(props) {
+  const { classes, usersData } = props;
 
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat (g)</TableCell>
-            <TableCell align="right">Carbs (g)</TableCell>
-            <TableCell align="right">Protein (g)</TableCell>
+            <TableCell>Username</TableCell>
+            <TableCell align="right">Created At</TableCell>
+            <TableCell align="right">Last Logged In</TableCell>
+            <TableCell align="right">Permissions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(n => {
+          {usersData !== null && usersData.map((n, i) => {
             return (
-              <TableRow key={n.id}>
+              <TableRow key={i}>
                 <TableCell component="th" scope="row">
-                  {n.name}
+                  {n.username}
                 </TableCell>
-                <TableCell align="right">{n.calories}</TableCell>
-                <TableCell align="right">{n.fat}</TableCell>
-                <TableCell align="right">{n.carbs}</TableCell>
-                <TableCell align="right">{n.protein}</TableCell>
+                <TableCell align="right">{n.created_at}</TableCell>
+                <TableCell align="right">{n.last_logged_in}</TableCell>
+                <TableCell align="right">{n.permissions}</TableCell>
               </TableRow>
             );
           })}
@@ -67,8 +54,8 @@ function SimpleTable(props) {
   );
 }
 
-SimpleTable.propTypes = {
+UsersTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleTable);
+export default withStyles(styles)(UsersTable);

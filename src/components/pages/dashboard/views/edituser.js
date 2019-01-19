@@ -7,9 +7,11 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import history from '../../../history';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
-import ProjectsTable from '../projectstable';
+import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
+import UsersTable from '../userstable';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -56,6 +58,12 @@ class ManageUsers extends React.Component {
         this.loadUsers();
     }
 
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value
+        });
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -69,6 +77,13 @@ class ManageUsers extends React.Component {
                             <Typography component="h1" variant="h6">
                                 Select Project
                             </Typography>
+                            <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }} className={classes.selectEmpty}>
+                                {this.state.users !== null && this.state.users.map((project, i) => (
+                                    <MenuItem key={i} value={project.project.id}>
+                                        {project.project_name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
                         </Paper>
                     </main>
                 </div>

@@ -83,7 +83,9 @@ class AddUser extends React.Component {
         passwordError: false,
         projectId: '',
         permissions: [],
-        projects: null
+        permissionsError: false,
+        projects: null,
+        response: ''
     }
 
     loadAdminProjects = () => {
@@ -113,6 +115,57 @@ class AddUser extends React.Component {
         });
     }
 
+    generateBodyDict = () => {
+        let usernameErrorCheck = this.state.username === '';
+        let passwordErrorCheck = this.state.password === '';
+        let permissionsErrorCheck = this.state.permissions.length === 0;
+
+        if (usernameErrorCheck || passwordErrorCheck || permissionsErrorCheck) {
+            this.setState({
+                usernameError: usernameErrorCheck,
+                passwordError: passwordErrorCheck,
+                permissionsError: permissionsErrorCheck
+            })
+            return {}
+        } else {
+            this.setState({
+                usernameError: false,
+                passwordError: false,
+                permissionsError: false
+            })
+            return {
+                "username": this.state.username,
+                "password": this.state.password,
+                "permissions": this.state.permissions.toString().replace(',', ';'),
+                "project_id": this.state.projectId,
+            }
+        }
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        let resBody = this.generateBodyDict();
+        if (resBody === {}) {
+            return;
+        } else {
+            fetch('http://192.168.99.100:6969/api/user', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(resBody)
+            }).then(res => res.json()).then(json => {
+                if (json.msg.includes('Successfully')) {
+                    this.setState({
+                        response: json.msg
+                    });
+                }
+            }).catch(err => console.error('Error: ', err));
+        } 
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -138,7 +191,7 @@ class AddUser extends React.Component {
                                     </Select>
                                 </FormControl>
                                 <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
-                                    <InputLabel htmlFor="username">Email Address</InputLabel>
+                                    <InputLabel htmlFor="username">User Name</InputLabel>
                                     <Input value={this.state.username} onChange={this.handleChange('username')} id="username" name="username" disableUnderline/>
                                 </FormControl>
                                 <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
@@ -162,6 +215,7 @@ class AddUser extends React.Component {
                                                         ))}
                                             </Select>
                                 </FormControl>
+                                {this.state.response !== '' ? <FormHelperText focused component="h6">{this.state.response}</FormHelperText> : null}
                                 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                                     Add project
                                 </Button>

@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = {
     root: {
-        width: '66%',
+        width: '75%',
         overflowX: 'auto',
         margin: '20px',
         alignItems: 'center'
@@ -30,8 +30,8 @@ function ProjectsTable(props) {
                 <TableHead>
                 <TableRow>
                     <TableCell>Project Name</TableCell>
-                    <TableCell>Address</TableCell>
-                    <TableCell>Postal Code</TableCell>
+                    <TableCell align="right">Address</TableCell>
+                    <TableCell align="right">Postal Code</TableCell>
                     <TableCell align="right"># of Users</TableCell>
                     <TableCell align="right">Last Updated</TableCell>
                 </TableRow>
