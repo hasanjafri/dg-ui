@@ -36,12 +36,16 @@ const styles = theme => ({
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
         maxWidth: '400px',
     },
+    projectTitle: {
+        marginBottom: theme.spacing.unit * 2,
+    }
 });
 
 class ManageUsers extends React.Component {
     state = {
         projectId: '',
-        users: null
+        users: null,
+        usersData: null
     }
 
     loadUsers = () => {
@@ -50,9 +54,9 @@ class ManageUsers extends React.Component {
             credentials: 'include'
         })
         .then(res => res.json()).then(json => {
-            console.log(json.users)
+            console.log(json.users.filter(project => project.length > 0))
             this.setState({
-                users: json
+                users: json.users.filter(project => project.length > 0)
             });
         }).catch(err => console.error('Error: ', err));
     }
@@ -77,17 +81,20 @@ class ManageUsers extends React.Component {
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
                         <Paper className={classes.paper}>
-                            <Typography component="h1" variant="h6">
+                            <Typography component="h1" variant="h6" className={classes.projectTitle}>
                                 Select Project
                             </Typography>
-                            <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }} className={classes.selectEmpty}>
-                                {this.state.users !== null && this.state.users.users.map((project, i) => {
-                                    {project[i].length > 0 ? <MenuItem key={i} value={project[i][0].project.id}>
-                                    {project[i][0].project.project_name}
-                                </MenuItem> : null}
-                                })}
+                            <Select autoFocus fullWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }} className={classes.selectEmpty}>
+                                {this.state.users !== null && this.state.users.map((project, i) => (
+                                    <MenuItem key={i} value={project[0].project.id}>
+                                        {project[0].project.project_name}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </Paper>
+                        <Typography component="h1" variant="h6" className={classes.projectTitle}>
+                            Users
+                        </Typography>
                     </main>
                 </div>
                 <Footer/>
