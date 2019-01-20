@@ -57,7 +57,55 @@ class Supplier extends React.Component {
         projects: null,
         projectId: '',
         supplier_name: '',
+        supplierError: false,
         response: ''
+    }
+
+    generateBodyDict = () => {
+        let supplierErrorCheck = this.state.supplier_name === "";
+
+        if (supplierErrorCheck) {
+            this.setState({
+                supplierError: supplierErrorCheck
+            })
+            return {}
+        } else {
+            this.setState({
+                supplierError: false
+            })
+            return {
+                "name": this.state.supplier_name,
+                "project_id": this.state.projectId
+            }
+        }
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        let resBody = this.generateBodyDict();
+        if (resBody === {}) {
+            return;
+        } else {
+            fetch('http://192.168.99.100:6969/api/supplier', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(resBody)
+            }).then(res => res.json()).then(json => {
+                if (json.msg) {
+                    this.setState({
+                        response: json.msg
+                    });
+                } else if (json.error) {
+                    this.setState({
+                        response: json.error
+                    })
+                }
+            }).catch(err => console.err('Error: ', err));
+        }
     }
 
     loadProjects = () => {
@@ -115,8 +163,8 @@ class Supplier extends React.Component {
                                         <InputLabel htmlFor="supplier_name">Supplier Name</InputLabel>
                                         <Input value={this.state.supplier_name} onChange={this.handleChange('supplier_name')} id="supplier_name" name="supplier_name" disableUnderline/>
                                     </FormControl>
-                                    {this.state.response !== '' ? <FormHelperText focused component="h6">{this.state.response}</FormHelperText> : null}
-                                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                                    {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
+                                    <Button disabled={this.state.projectId === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                                         Add supplier
                                     </Button>
                                 </form>
