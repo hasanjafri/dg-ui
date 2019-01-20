@@ -162,6 +162,7 @@ class Supplier extends React.Component {
                                     <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
                                         <InputLabel htmlFor="supplier_name">Supplier Name</InputLabel>
                                         <Input value={this.state.supplier_name} onChange={this.handleChange('supplier_name')} id="supplier_name" name="supplier_name" disableUnderline/>
+                                        {this.state.supplierError === true ? <FormHelperText error>Please enter</FormHelperText> : null}
                                     </FormControl>
                                     {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
                                     <Button disabled={this.state.projectId === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
