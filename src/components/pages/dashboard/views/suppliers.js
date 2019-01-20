@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import history from 'history';
+import history from '../../../history';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -33,7 +33,6 @@ const styles = theme => ({
         alignItems: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
         maxWidth: '400px',
-        height: '100%'
     },
     projectTitle: {
         marginBottom: theme.spacing.unit,
@@ -143,34 +142,33 @@ class ManageSuppliers extends React.Component {
                 <div className={classes.root}>
                     <SideNavBar/>
                     <main className={classes.content}>
-                        <div className={classes.appBarSpacer}>
-                            <Paper className={classes.paper}>
-                                <Typography component="h1" variant="h6" className={classes.projectTitle}>
-                                    Select Project
-                                </Typography>
-                                <form className={classes.form} onSubmit={this.handleSubmit}>
-                                    <FormControl className={classes.formControl} margin="normal" required fullWidth>
-                                        <InputLabel htmlFor="projectId">Select a Project</InputLabel>
-                                        <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }}>
-                                            {this.state.projects != null && this.state.projects.map((project, i) => (
-                                                <MenuItem key={i} value={project.id}>
-                                                    {project.project_name}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                    <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
-                                        <InputLabel htmlFor="supplier_name">Supplier Name</InputLabel>
-                                        <Input value={this.state.supplier_name} onChange={this.handleChange('supplier_name')} id="supplier_name" name="supplier_name" disableUnderline/>
-                                        {this.state.supplierError === true ? <FormHelperText error>Please enter</FormHelperText> : null}
-                                    </FormControl>
-                                    {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
-                                    <Button disabled={this.state.projectId === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                                        Add supplier
-                                    </Button>
-                                </form>
-                            </Paper>
-                        </div>
+                        <div className={classes.appBarSpacer}/>
+                        <Paper className={classes.paper}>
+                            <Typography component="h1" variant="h6" className={classes.projectTitle}>
+                                Select Project
+                            </Typography>
+                            <form className={classes.form} onSubmit={this.handleSubmit}>
+                                <FormControl className={classes.formControl} margin="normal" required fullWidth>
+                                    <InputLabel htmlFor="projectId">Select a Project</InputLabel>
+                                    <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }}>
+                                        {this.state.projects != null && this.state.projects.map((project, i) => (
+                                            <MenuItem key={i} value={project.id}>
+                                                {project.project_name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
+                                    <InputLabel htmlFor="supplier_name">Supplier Name</InputLabel>
+                                    <Input value={this.state.supplier_name} onChange={this.handleChange('supplier_name')} id="supplier_name" name="supplier_name" disableUnderline/>
+                                    {this.state.supplierError === true ? <FormHelperText error>Please enter</FormHelperText> : null}
+                                </FormControl>
+                                {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
+                                <Button disabled={this.state.projectId === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                                    Add supplier
+                                </Button>
+                            </form>
+                        </Paper>
                     </main>
                 </div>
             </React.Fragment>
