@@ -11,6 +11,7 @@ import Dashboard from './pages/dashboard/views/dashboard';
 import AddUser from './pages/dashboard/views/adduser';
 import AddProject from './pages/dashboard/views/addproject';
 import ManageUsers from './pages/dashboard/views/edituser';
+import ManageSuppliers from './pages/dashboard/views/suppliers';
 
 const Routes = () => {
     return(
@@ -24,6 +25,7 @@ const Routes = () => {
             <Route path="/dashboard/users" exact component={AddUser}/>
             <Route path="/dashboard/projects" exact component={AddProject}/>
             <Route path="/dashboard/users/manage" exact component={ManageUsers}/>
+            <Route path="/dashboard/suppliers" exact component={ManageSuppliers}/>
         </Switch>
     )
 }

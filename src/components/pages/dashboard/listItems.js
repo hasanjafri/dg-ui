@@ -34,7 +34,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Order Input" />
     </ListItem>
-    <ListItem button selected={current_path === '/dashboard/suppliers'? true : false}>
+    <ListItem button selected={current_path === '/dashboard/suppliers'? true : false} onClick={() => history.push('/dashboard/suppliers')}>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>

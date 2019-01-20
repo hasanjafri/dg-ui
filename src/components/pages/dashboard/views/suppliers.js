@@ -52,7 +52,7 @@ const styles = theme => ({
     },
 });
 
-class Supplier extends React.Component {
+class ManageSuppliers extends React.Component {
     state = {
         projects: null,
         projectId: '',
@@ -178,4 +178,4 @@ class Supplier extends React.Component {
     }
 }
 
-export default withStyles(styles)(Supplier);
+export default withStyles(styles)(ManageSuppliers);
