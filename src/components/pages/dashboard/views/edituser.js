@@ -89,7 +89,7 @@ class ManageUsers extends React.Component {
                             <Typography component="h1" variant="h6" className={classes.projectTitle}>
                                 Select Project
                             </Typography>
-                            <Select autoFocus fullWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }} className={classes.selectEmpty}>
+                            <Select autoFocus fullWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }}>
                                 {this.state.users !== null && this.state.users.map((project, i) => (
                                     <MenuItem key={i} value={project[0].project.id}>
                                         {project[0].project.project_name}

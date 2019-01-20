@@ -35,7 +35,8 @@ const styles = theme => ({
 
 class OrderInput extends React.Component {
     state = {
-        projects: null
+        projects: null,
+        projectId: ''
     }
 
     loadProjects = () => {
@@ -59,6 +60,14 @@ class OrderInput extends React.Component {
         this.loadProjects();
     }
 
+    handleChange = name => event => {
+        console.log(this.state.users.filter(users => users[0].project.id === event.target.value))
+        this.setState({
+            [name]: event.target.value,
+            usersData: this.state.users.filter(users => users[0].project.id === event.target.value)
+        });
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -72,7 +81,9 @@ class OrderInput extends React.Component {
                                 <Typography component="h1" variant="h6" className={classes.projectTitle}>
                                     Select Project
                                 </Typography>
-                                <Select autoFocus fullWidth value=
+                                <Select autoFocus fullWidth value={this.state.projectId} onChange={this.handleChange('projectId') name="projectId" inputProps={{ id: 'projectId-required' }}>
+                                    
+                                </Select>
                             </Paper>
                         </div>
                     </main>

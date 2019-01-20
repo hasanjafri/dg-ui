@@ -182,7 +182,7 @@ class AddUser extends React.Component {
                             <form className={classes.form} onSubmit={this.handleSubmit}>
                                 <FormControl className={classes.formControl} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="projectId">Select a Project</InputLabel>
-                                    <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }} className={classes.selectEmpty}>
+                                    <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }}>
                                         {this.state.projects != null && this.state.projects.map((project, i) => (
                                             <MenuItem key={i} value={project.id}>
                                                 {project.project_name}
