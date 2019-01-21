@@ -120,7 +120,13 @@ class OrderInput extends React.Component {
                 costError: false
             }, () => {
                 return {
-                    
+                    'sku': this.state.sku,
+                    'product_name': this.state.product_name,
+                    'unit_size': this.state.unit_size,
+                    'measurement_unit': this.state.measurement_unit,
+                    'quantity': this.state.quantity,
+                    'cost': this.state.cost,
+                    'supplier_id': this.state.supplierId
                 }
             })
         }
