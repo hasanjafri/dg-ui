@@ -67,7 +67,8 @@ class ManageSuppliers extends React.Component {
         supplierError: false,
         response: '',
         supplierId: '',
-        supplierData: null
+        supplierData: null,
+        suppliers: null
     }
 
     generateBodyDict = () => {
@@ -134,14 +135,43 @@ class ManageSuppliers extends React.Component {
         }).catch(error => console.error('Error:', error));
     }
 
+    loadSuppliers = () => {
+        fetch('http://192.168.99.100:6969/api/supplier', {
+            mode: 'cors',
+            credentials: 'include'
+        }).then(res => res.json()).then(json => {
+            if (json.error) {
+                history.push('/login')
+            } else if (json.suppliers) {
+                this.setState({
+                    suppliers: json.suppliers
+                });
+                console.log(json.suppliers);
+            }
+        }).catch(err => console.error('Error: ', err));
+    }
+
     componentDidMount() {
         this.loadProjects();
+        this.loadSuppliers();
     }
 
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
+        }, () => {
+            if (name === 'projectId') {
+                this.setSupplierData();
+            }
         });
+    }
+
+    setSupplierData = () => {
+        this.setState({
+            supplierData: this.state.suppliers.filter(supplier => supplier.project_id === Number(this.state.projectId))
+        }, () => {
+            console.log(this.state.supplierData);
+        })
     }
 
     render() {
@@ -183,10 +213,10 @@ class ManageSuppliers extends React.Component {
                             <Typography component="h1" variant="h6" className={classes.projectTitle}>
                                 Select Supplier
                             </Typography>
-                            <Select className={classes.selectInput} value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }}>
-                                {this.state.projectId !== '' && this.state.projects.map((project, i) => (
-                                    <MenuItem key={i} value={project.id}>
-                                        {project.project_name}
+                            <Select disabled={this.state.projectId === ""} className={classes.selectInput} value={this.state.supplierId} onChange={this.handleChange('supplierId')} name="supplierId" inputProps={{ id: 'supplierId-required' }}>
+                                {this.state.supplierData != null && this.state.supplierData.map((supplier, i) => (
+                                    <MenuItem key={i} value={supplier.id}>
+                                        {supplier.name}
                                     </MenuItem>
                                 ))}
                             </Select>
