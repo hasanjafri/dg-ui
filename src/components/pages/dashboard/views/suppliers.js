@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
 import SideNavBar from '../sidenavbar';
-import SuppliersTable from '../fooditemstable';
+import FoodTable from '../fooditemstable';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -32,6 +32,7 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
         maxWidth: '400px',
     },
@@ -50,6 +51,12 @@ const styles = theme => ({
     submit: {
         marginTop: theme.spacing.unit * 3,
     },
+    userTitle: {
+        marginTop: theme.spacing.unit * 6,
+    },
+    selectInput: {
+        width: '100%'
+    }
 });
 
 class ManageSuppliers extends React.Component {
@@ -58,7 +65,9 @@ class ManageSuppliers extends React.Component {
         projectId: '',
         supplier_name: '',
         supplierError: false,
-        response: ''
+        response: '',
+        supplierId: '',
+        supplierData: null
     }
 
     generateBodyDict = () => {
@@ -169,6 +178,18 @@ class ManageSuppliers extends React.Component {
                                     Add supplier
                                 </Button>
                             </form>
+                        </Paper>
+                        <Paper className={classes.paper}>
+                            <Typography component="h1" variant="h6" className={classes.projectTitle}>
+                                Select Supplier
+                            </Typography>
+                            <Select className={classes.selectInput} value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }}>
+                                {this.state.projectId !== '' && this.state.projects.map((project, i) => (
+                                    <MenuItem key={i} value={project.id}>
+                                        {project.project_name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
                         </Paper>
                     </main>
                 </div>
