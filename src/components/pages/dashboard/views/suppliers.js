@@ -35,9 +35,7 @@ const styles = theme => ({
         justifyContent: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
         maxWidth: '400px',
-    },
-    projectTitle: {
-        marginBottom: theme.spacing.unit,
+        minWidth: '200px'
     },
     formControl: {
         margin: theme.spacing.unit,
@@ -185,7 +183,7 @@ class ManageSuppliers extends React.Component {
                         <div className={classes.appBarSpacer}/>
                         <Paper className={classes.paper}>
                             <Typography component="h1" variant="h6" className={classes.projectTitle}>
-                                Select Project
+                                Project
                             </Typography>
                             <form className={classes.form} onSubmit={this.handleSubmit}>
                                 <FormControl className={classes.formControl} margin="normal" required fullWidth>
@@ -201,7 +199,7 @@ class ManageSuppliers extends React.Component {
                                 <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="supplier_name">Supplier Name</InputLabel>
                                     <Input value={this.state.supplier_name} onChange={this.handleChange('supplier_name')} id="supplier_name" name="supplier_name" disableUnderline/>
-                                    {this.state.supplierError === true ? <FormHelperText error>Please enter</FormHelperText> : null}
+                                    {this.state.supplierError === true ? <FormHelperText error>Please enter a name for this supplier</FormHelperText> : null}
                                 </FormControl>
                                 {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
                                 <Button disabled={this.state.projectId === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
@@ -210,16 +208,19 @@ class ManageSuppliers extends React.Component {
                             </form>
                         </Paper>
                         <Paper className={classes.paper}>
-                            <Typography component="h1" variant="h6" className={classes.projectTitle}>
-                                Select Supplier
+                            <Typography component="h1" variant="h6">
+                                Supplier
                             </Typography>
-                            <Select disabled={this.state.projectId === ""} className={classes.selectInput} value={this.state.supplierId} onChange={this.handleChange('supplierId')} name="supplierId" inputProps={{ id: 'supplierId-required' }}>
-                                {this.state.supplierData != null && this.state.supplierData.map((supplier, i) => (
-                                    <MenuItem key={i} value={supplier.id}>
-                                        {supplier.name}
-                                    </MenuItem>
-                                ))}
-                            </Select>
+                            <FormControl required fullWidth className={classes.formControl} disabled={this.state.projectId === ""} margin="normal">
+                                <InputLabel htmlFor="supplierId">Select a Supplier</InputLabel>
+                                <Select className={classes.selectInput} value={this.state.supplierId} onChange={this.handleChange('supplierId')} name="supplierId" inputProps={{ id: 'supplierId-required' }}>
+                                    {this.state.supplierData != null && this.state.supplierData.map((supplier, i) => (
+                                        <MenuItem key={i} value={supplier.id}>
+                                            {supplier.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Paper>
                     </main>
                 </div>

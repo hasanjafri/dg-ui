@@ -28,7 +28,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Instructions" />
     </ListItem>
-    <ListItem button selected={current_path === '/dashboard/orderinput'? true : false}>
+    <ListItem button selected={current_path === '/dashboard/order_input'? true : false} onClick={() => history.push('/dashboard/order_input')}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
