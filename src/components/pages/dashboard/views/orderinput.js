@@ -107,9 +107,8 @@ class OrderInput extends React.Component {
                 measurementError: measurementErrorCheck,
                 quantityError: quantityErrorCheck,
                 costError: costErrorCheck
-            }, () => {
-                return {}
-            })
+            });
+            return {};
         } else {
             this.setState({
                 skuError: false,
@@ -118,17 +117,16 @@ class OrderInput extends React.Component {
                 measurementError: false,
                 quantityError: false,
                 costError: false
-            }, () => {
-                return {
-                    'sku': this.state.sku,
-                    'product_name': this.state.product_name,
-                    'unit_size': this.state.unit_size,
-                    'measurement_unit': this.state.measurement_unit,
-                    'quantity': this.state.quantity,
-                    'cost': this.state.cost,
-                    'supplier_id': this.state.supplierId
-                }
-            })
+            });
+            return {
+                "sku": this.state.sku,
+                "product_name": this.state.product_name,
+                "unit_size": this.state.unit_size,
+                "measurement_unit": this.state.measurement_unit,
+                "quantity": this.state.quantity,
+                "cost": this.state.cost,
+                "supplier_id": this.state.supplierId
+            };
         }
     }
 
@@ -250,8 +248,8 @@ class OrderInput extends React.Component {
                                 </FormControl>
                                 <FormControl className={classes.formControl} disabled={this.state.projectId === "" || this.state.supplierId === ''} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="measurement_unit">Measurement Unit</InputLabel>
-                                    <Input value={this.state.unit_size} onChange={this.handleChange('unit_size')} id="unit_size" name="unit_size" disableUnderline/>
-                                    {this.state.unitSizeError === true ? <FormHelperText error>Please enter a measurement unit for this order</FormHelperText> : null}
+                                    <Input value={this.state.measurement_unit} onChange={this.handleChange('measurement_unit')} id="measurement_unit" name="measurement_unit" disableUnderline/>
+                                    {this.state.measurementError === true ? <FormHelperText error>Please enter a measurement unit for this order</FormHelperText> : null}
                                 </FormControl>
                                 <FormControl className={classes.formControl} disabled={this.state.projectId === "" || this.state.supplierId === ''} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="quantity">Quantity</InputLabel>
@@ -264,7 +262,7 @@ class OrderInput extends React.Component {
                                     {this.state.costError === true ? <FormHelperText error>Please enter a cost for this order</FormHelperText> : null}
                                 </FormControl>
                                 {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
-                                <Button disabled={this.state.projectId === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                                <Button disabled={this.state.projectId === "" || this.state.supplierId === ''} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                                     Add supplier
                                 </Button>
                             </form>
