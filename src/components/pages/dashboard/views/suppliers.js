@@ -151,7 +151,7 @@ class ManageSuppliers extends React.Component {
     }
 
     loadFoodItems = () => {
-        fetch('http://192.168.99.100:6969/api/inventory_product', {
+        fetch('http://192.168.99.100:6969/api/inventory_product?sid=' + this.state.supplierId, {
             mode: 'cors',
             credentials: 'include'
         }).then(res => res.json()).then(json => {
@@ -169,7 +169,6 @@ class ManageSuppliers extends React.Component {
     componentDidMount() {
         this.loadProjects();
         this.loadSuppliers();
-        this.loadFoodItems();
     }
 
     handleChange = name => event => {
@@ -178,6 +177,8 @@ class ManageSuppliers extends React.Component {
         }, () => {
             if (name === 'projectId') {
                 this.setSupplierData();
+            } else if (name === 'supplierId') {
+                this.loadFoodItems();
             }
         });
     }
