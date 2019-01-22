@@ -107,13 +107,15 @@ class ManageSuppliers extends React.Component {
                 if (json.msg) {
                     this.setState({
                         response: json.msg
+                    }, () => {
+                        this.loadSuppliers();
                     });
                 } else if (json.error) {
                     this.setState({
                         response: json.error
                     })
                 }
-            }).catch(err => console.err('Error: ', err));
+            }).catch(err => console.error('Error: ', err));
         }
     }
 
@@ -187,6 +189,9 @@ class ManageSuppliers extends React.Component {
         this.setState({
             supplierData: this.state.suppliers.filter(supplier => supplier.project_id === Number(this.state.projectId))
         }, () => {
+            this.setState({
+                foodItemData: null
+            });
             console.log(this.state.supplierData);
         })
     }
@@ -241,6 +246,7 @@ class ManageSuppliers extends React.Component {
                                 </Select>
                             </FormControl>
                         </Paper>
+                        <FoodTable foodData={this.state.foodItemData}/>
                     </main>
                 </div>
             </React.Fragment>

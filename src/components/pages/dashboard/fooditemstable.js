@@ -22,7 +22,7 @@ const styles = {
 };
 
 function FoodTable(props) {
-    const { classes, suppliersData } = props;
+    const { classes, foodData } = props;
 
     return(
         <Paper className={classes.root}>
@@ -39,7 +39,7 @@ function FoodTable(props) {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {suppliersData !== null && suppliersData.map((n, i) => {
+                {foodData !== null && foodData.map((n, i) => {
                     return (
                     <TableRow key={i}>
                         <TableCell component="th" scope="row">
