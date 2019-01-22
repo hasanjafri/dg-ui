@@ -66,7 +66,8 @@ class ManageSuppliers extends React.Component {
         response: '',
         supplierId: '',
         supplierData: null,
-        suppliers: null
+        suppliers: null,
+        foodItemData: null
     }
 
     generateBodyDict = () => {
@@ -149,9 +150,26 @@ class ManageSuppliers extends React.Component {
         }).catch(err => console.error('Error: ', err));
     }
 
+    loadFoodItems = () => {
+        fetch('http://192.168.99.100:6969/api/inventory_product', {
+            mode: 'cors',
+            credentials: 'include'
+        }).then(res => res.json()).then(json => {
+            if (json.error) {
+                history.push('/login');
+            } else if (json.inventory_products) {
+                this.setState({
+                    foodItemData: json.inventory_products
+                });
+                console.log(json.inventory_products);
+            }
+        }).catch(err => console.error('Error: ', err));
+    }
+
     componentDidMount() {
         this.loadProjects();
         this.loadSuppliers();
+        this.loadFoodItems();
     }
 
     handleChange = name => event => {
