@@ -45,12 +45,16 @@ const styles = theme => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing.unit,
     },
+    submit: {
+        marginTop: theme.spacing.unit * 3,
+    },
 })
 
 class InternalNaming extends React.Component {
     state = {
         projects: null,
-        projectId: ''
+        projectId: '',
+        category_name: ''
     };
 
     loadProjects = () => {
@@ -68,6 +72,10 @@ class InternalNaming extends React.Component {
                 console.log(responseJson.projects);
             }
         }).catch(error => console.error('Error:', error));
+    }
+
+    loadCategories = () => {
+        
     }
 
     componentDidMount() {
@@ -109,7 +117,14 @@ class InternalNaming extends React.Component {
                                 Category
                             </Typography>
                             <form className={classes.form} onSubmit={this.handleCategory}>
-                                
+                                <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
+                                    <InputLabel htmlFor="category_name">Category Name</InputLabel>
+                                    <Input value={this.state.category_name} onChange={this.handleChange('category_name')} id="category_name" name="category_name" disableUnderline/>
+                                </FormControl>
+                                {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
+                                <Button disabled={this.state.projectId === "" || this.state.category_name === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                                    Add category
+                                </Button>
                             </form>
                         </Paper>
                     </main>
