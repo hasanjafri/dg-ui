@@ -52,6 +52,13 @@ const styles = theme => ({
     submit: {
         marginTop: theme.spacing.unit * 2,
     },
+    menuHeading: {
+        fontWeight: theme.typography.fontWeightMedium,
+        opacity: 1
+    },
+    menuItem: {
+        paddingLeft: 3 * theme.spacing.unit
+    }
 });
 
 class OrderInput extends React.Component {
@@ -203,11 +210,13 @@ class OrderInput extends React.Component {
     }
 
     handleChange = name => event => {
+        console.log(event.target.value);
         this.setState({
             [name]: event.target.value,
         }, () => {
             if (name === 'projectId') {
                 this.setSupplierData();
+                this.loadCategories();
             }
         });
     }
@@ -248,9 +257,14 @@ class OrderInput extends React.Component {
                                     <InputLabel htmlFor="internal_name_id">Select Internal Name</InputLabel>
                                     <Select autoFocus autoWidth value={this.state.internal_name_id} onChange={this.handleChange('internal_name_id')} name="internal_name_id" inputProps={{ id: 'internal_name_id-required' }}>
                                         {this.state.categoryData != null && this.state.categoryData.map((category, i) => (
-                                            <MenuItem key={i} value={category.id}>
-                                                {category.category_name}
-                                            </MenuItem>
+                                            <React.Fragment>
+                                                <MenuItem key={i} disabled className={classes.menuHeading}>{category.category_name}</MenuItem>
+                                                {this.state.categoryData.internal_names.map((internal_name, i) => (
+                                                    <MenuItem key={i} value={internal_name.id} className={classes.menuItem}>
+                                                        {internal_name.internal_name}
+                                                    </MenuItem>
+                                                ))}
+                                            </React.Fragment>
                                         ))}
                                     </Select>
                                 </FormControl>
