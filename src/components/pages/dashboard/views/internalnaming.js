@@ -263,9 +263,9 @@ class InternalNaming extends React.Component {
                                     <FormControl className={classes.formControl} margin="normal" required disabled={this.state.projectId === ""} fullWidth>
                                         <InputLabel htmlFor="categoryId">Select a Category</InputLabel>
                                         <Select autoFocus autoWidth value={this.state.categoryId} onChange={this.handleChange('categoryId')} name="categoryId" inputProps={{ id: 'categoryId-required' }}>
-                                            {this.state.projectCategories != null && this.state.projectCategories.map((project, i) => (
-                                                <MenuItem key={i} value={project.id}>
-                                                    {project.project_name}
+                                            {this.state.projectCategories != null && this.state.projectCategories.map((category, i) => (
+                                                <MenuItem key={i} value={category.id}>
+                                                    {category.category_name}
                                                 </MenuItem>
                                             ))}
                                         </Select>
