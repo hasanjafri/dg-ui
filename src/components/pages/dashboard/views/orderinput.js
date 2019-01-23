@@ -6,6 +6,7 @@ import history from '../../../history';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
 import SideNavBar from '../sidenavbar';
@@ -72,7 +73,8 @@ class OrderInput extends React.Component {
         quantityError: false,
         cost: '',
         costError: false,
-        internal_name_id: ''
+        internal_name_id: '',
+        categoryData: null
     }
 
     loadProjects = () => {
@@ -160,6 +162,25 @@ class OrderInput extends React.Component {
         }
     }
 
+    loadCategories = () => {
+        fetch('http://192.168.99.100:6969/api/category?pid=' + this.state.projectId, {
+            mode: 'cors',
+            credentials: 'include'
+        })
+        .then(res => res.json()).then(json => {
+            if (json.error) {
+                history.push('/login');
+            } else if (json.categories) {
+                this.setState({
+                    projectCategories: json.categories
+                });
+                console.log(json.categories);
+            } else {
+                console.log(json);
+            }
+        }).catch(err => console.error('Error: ', err));
+    }
+
     loadSuppliers = () => {
         fetch('http://192.168.99.100:6969/api/supplier', {
             mode: 'cors',
@@ -219,6 +240,16 @@ class OrderInput extends React.Component {
                                         {this.state.projects != null && this.state.projects.map((project, i) => (
                                             <MenuItem key={i} value={project.id}>
                                                 {project.project_name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                                <FormControl className={classes.formControl} margin="normal" required fullWidth>
+                                    <InputLabel htmlFor="internal_name_id">Select Internal Name</InputLabel>
+                                    <Select autoFocus autoWidth value={this.state.internal_name_id} onChange={this.handleChange('internal_name_id')} name="internal_name_id" inputProps={{ id: 'internal_name_id-required' }}>
+                                        {this.state.categoryData != null && this.state.categoryData.map((category, i) => (
+                                            <MenuItem key={i} value={category.id}>
+                                                {category.category_name}
                                             </MenuItem>
                                         ))}
                                     </Select>
