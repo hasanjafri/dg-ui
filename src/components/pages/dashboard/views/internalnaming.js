@@ -36,11 +36,21 @@ const styles = theme => ({
         maxWidth: '400px',
         minWidth: '200px'
     },
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 120,
+        maxWidth: 300,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing.unit,
+    },
 })
 
 class InternalNaming extends React.Component {
     state = {
-
+        projects: null,
+        projectId: ''
     };
 
     loadProjects = () => {
@@ -83,6 +93,24 @@ class InternalNaming extends React.Component {
                             <Typography component="h1" variant="h6">
                                 Project
                             </Typography>
+                            <FormControl className={classes.formControl} margin="normal" required fullWidth>
+                                <InputLabel htmlFor="projectId">Select a Project</InputLabel>
+                                <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }}>
+                                    {this.state.projects != null && this.state.projects.map((project, i) => (
+                                        <MenuItem key={i} value={project.id}>
+                                            {project.project_name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Paper>
+                        <Paper className={classes.paper}>
+                            <Typography component="h1" variant="h6">
+                                Category
+                            </Typography>
+                            <form className={classes.form} onSubmit={this.handleCategory}>
+                                
+                            </form>
                         </Paper>
                     </main>
                 </div>
