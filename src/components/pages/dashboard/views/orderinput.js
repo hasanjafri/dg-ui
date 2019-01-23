@@ -21,7 +21,7 @@ const styles = theme => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing.unit * 3,
-        height: '100vh',
+        height: '110vh',
         overflow: 'auto',
         display: 'flex',
         flexDirection: 'column',
@@ -35,7 +35,7 @@ const styles = theme => ({
         justifyContent: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
         maxWidth: '400px',
-        minWidth: '200px'
+        minWidth: '200px',
     },
     projectTitle: {
         marginBottom: theme.spacing.unit,
