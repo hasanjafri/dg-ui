@@ -179,7 +179,7 @@ class OrderInput extends React.Component {
                 history.push('/login');
             } else if (json.categories) {
                 this.setState({
-                    projectCategories: json.categories
+                    categoryData: json.categories
                 });
                 console.log(json.categories);
             } else {
@@ -257,14 +257,14 @@ class OrderInput extends React.Component {
                                     <InputLabel htmlFor="internal_name_id">Select Internal Name</InputLabel>
                                     <Select autoFocus autoWidth value={this.state.internal_name_id} onChange={this.handleChange('internal_name_id')} name="internal_name_id" inputProps={{ id: 'internal_name_id-required' }}>
                                         {this.state.categoryData != null && this.state.categoryData.map((category, i) => (
-                                            <React.Fragment>
+                                            <div>
                                                 <MenuItem key={i} disabled className={classes.menuHeading}>{category.category_name}</MenuItem>
-                                                {this.state.categoryData.internal_names.map((internal_name, i) => (
+                                                {category.internal_names.map((internal_name, i) => (
                                                     <MenuItem key={i} value={internal_name.id} className={classes.menuItem}>
                                                         {internal_name.internal_name}
                                                     </MenuItem>
                                                 ))}
-                                            </React.Fragment>
+                                            </div>
                                         ))}
                                     </Select>
                                 </FormControl>
