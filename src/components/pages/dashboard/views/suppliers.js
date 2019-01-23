@@ -146,6 +146,10 @@ class ManageSuppliers extends React.Component {
             } else if (json.suppliers) {
                 this.setState({
                     suppliers: json.suppliers
+                }, () => {
+                    if (this.state.projectId !== "") {
+                        this.setSupplierData();
+                    }
                 });
                 console.log(json.suppliers);
             }

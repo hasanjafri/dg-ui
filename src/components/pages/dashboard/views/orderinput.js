@@ -71,7 +71,8 @@ class OrderInput extends React.Component {
         quantity: '',
         quantityError: false,
         cost: '',
-        costError: false
+        costError: false,
+        internal_name_id: ''
     }
 
     loadProjects = () => {
@@ -125,7 +126,8 @@ class OrderInput extends React.Component {
                 "measurement_unit": this.state.measurement_unit,
                 "quantity": this.state.quantity,
                 "cost": this.state.cost,
-                "supplier_id": this.state.supplierId
+                "supplier_id": this.state.supplierId,
+                "internal_name_id": this.state.internal_name_id
             };
         }
     }
