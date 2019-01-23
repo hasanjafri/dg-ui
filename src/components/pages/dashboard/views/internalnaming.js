@@ -180,6 +180,8 @@ class InternalNaming extends React.Component {
                     } else if (json.msg) {
                         this.setState({
                             response: json.msg
+                        }, () => {
+                            this.loadCategories();
                         });
                     } else {
                         console.log(json);
@@ -220,11 +222,11 @@ class InternalNaming extends React.Component {
                     <SideNavBar/>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer}/>
-                        <Paper className={classes.paper}>
+                        <Paper className={classes.paper} style={{maxWidth: '250px'}}>
                             <Typography component="h1" variant="h6">
                                 Project
                             </Typography>
-                            <FormControl className={classes.formControl} margin="normal" required fullWidth>
+                            <FormControl className={classes.formControl} style={{maxWidth: '300px'}} margin="normal" required fullWidth>
                                 <InputLabel htmlFor="projectId">Select a Project</InputLabel>
                                 <Select autoFocus autoWidth value={this.state.projectId} onChange={this.handleChange('projectId')} name="projectId" inputProps={{ id: 'projectId-required' }}>
                                     {this.state.projects != null && this.state.projects.map((project, i) => (
@@ -256,10 +258,6 @@ class InternalNaming extends React.Component {
                                     Internal Name
                                 </Typography>
                                 <form className={classes.form} onSubmit={this.handleSubmit('internal_name')}>
-                                    <FormControl className={classes.formControl} disabled={this.state.projectId === "" || this.state.categoryId === ""} margin="normal" required fullWidth>
-                                        <InputLabel htmlFor="internal_name">Internal Name</InputLabel>
-                                        <Input value={this.state.internal_name} onChange={this.handleChange('internal_name')} id="internal_name" name="internal_name" disableUnderline/>
-                                    </FormControl>
                                     <FormControl className={classes.formControl} margin="normal" required disabled={this.state.projectId === ""} fullWidth>
                                         <InputLabel htmlFor="categoryId">Select a Category</InputLabel>
                                         <Select autoFocus autoWidth value={this.state.categoryId} onChange={this.handleChange('categoryId')} name="categoryId" inputProps={{ id: 'categoryId-required' }}>
@@ -270,7 +268,11 @@ class InternalNaming extends React.Component {
                                             ))}
                                         </Select>
                                     </FormControl>
-                                    {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
+                                    <FormControl className={classes.formControl} disabled={this.state.projectId === "" || this.state.categoryId === ""} margin="normal" required fullWidth>
+                                        <InputLabel htmlFor="internal_name">Internal Name</InputLabel>
+                                        <Input value={this.state.internal_name} onChange={this.handleChange('internal_name')} id="internal_name" name="internal_name" disableUnderline/>
+                                    </FormControl>
+                                    {this.state.responseI !== '' ? <FormHelperText focused error component="h4">{this.state.responseI}</FormHelperText> : null}
                                     <Button disabled={this.state.projectId === "" || this.state.internal_name === "" || this.state.categoryId === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                                         Add Internal Name
                                     </Button>
