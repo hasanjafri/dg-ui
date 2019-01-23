@@ -6,9 +6,9 @@ import history from '../../../history';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
+import SelectField from 'material-ui-superselectfield/es';
 import SideNavBar from '../sidenavbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -255,18 +255,9 @@ class OrderInput extends React.Component {
                                 </FormControl>
                                 <FormControl className={classes.formControl} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="internal_name_id">Select Internal Name</InputLabel>
-                                    <Select autoFocus autoWidth value={this.state.internal_name_id} onChange={this.handleChange('internal_name_id')} name="internal_name_id" inputProps={{ id: 'internal_name_id-required' }}>
-                                        {this.state.categoryData != null && this.state.categoryData.map((category, i) => (
-                                            <div>
-                                                <MenuItem key={i} disabled className={classes.menuHeading}>{category.category_name}</MenuItem>
-                                                {category.internal_names.map((internal_name, i) => (
-                                                    <MenuItem key={i} value={internal_name.id} className={classes.menuItem}>
-                                                        {internal_name.internal_name}
-                                                    </MenuItem>
-                                                ))}
-                                            </div>
-                                        ))}
-                                    </Select>
+                                    <SelectField name="internal_name_id" hintText="Select Internal Name" onChange={this.handleChange('internal_name_id')}>
+                                        
+                                    </SelectField>
                                 </FormControl>
                                 <FormControl required fullWidth className={classes.formControl} disabled={this.state.projectId === ""} margin="normal">
                                     <InputLabel htmlFor="supplierId">Select a Supplier</InputLabel>
