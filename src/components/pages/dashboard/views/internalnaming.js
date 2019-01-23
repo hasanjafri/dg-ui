@@ -129,7 +129,24 @@ class InternalNaming extends React.Component {
                 }
             }
         } else if (type === 'internal_name') {
+            let internalNameErrorCheck = this.state.internal_name === "";
 
+            if (internalNameErrorCheck) {
+                this.setState({
+                    internalNameError: internalNameErrorCheck
+                })
+                return {}
+            } else {
+                this.setState({
+                    internalNameError: false
+                });
+                return {
+                    "internal_name": this.state.internal_name,
+                    "category_id": this.state.categoryId
+                }
+            }
+        } else {
+            return {};
         }
     }
 
@@ -180,6 +197,8 @@ class InternalNaming extends React.Component {
                         console.log(json);
                     }
                 }).catch(err => console.error('Error: ', err));
+            } else {
+                return;
             }
         }
     }
@@ -212,7 +231,7 @@ class InternalNaming extends React.Component {
                             <Typography component="h1" variant="h6">
                                 Category
                             </Typography>
-                            <form className={classes.form} onSubmit={this.handleCategory}>
+                            <form className={classes.form} onSubmit={this.handleSubmit('category')}>
                                 <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="category_name">Category Name</InputLabel>
                                     <Input value={this.state.category_name} onChange={this.handleChange('category_name')} id="category_name" name="category_name" disableUnderline/>
