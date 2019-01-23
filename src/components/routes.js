@@ -13,6 +13,7 @@ import AddProject from './pages/dashboard/views/addproject';
 import ManageUsers from './pages/dashboard/views/edituser';
 import ManageSuppliers from './pages/dashboard/views/suppliers';
 import OrderInput from './pages/dashboard/views/orderinput';
+import InternalNaming from './pages/dashboard/views/internalnaming';
 
 const Routes = () => {
     return(
@@ -28,6 +29,7 @@ const Routes = () => {
             <Route path="/dashboard/users/manage" exact component={ManageUsers}/>
             <Route path="/dashboard/suppliers" exact component={ManageSuppliers}/>
             <Route path="/dashboard/order_input" exact component={OrderInput}/>
+            <Route path="/dashboard/internal_naming" exact component={InternalNaming}/>
         </Switch>
     )
 }

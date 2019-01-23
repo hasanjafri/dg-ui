@@ -27,19 +27,18 @@ const styles = theme => ({
         alignItems: 'center',
     },
     paper: {
-        marginTop: theme.spacing.unit * 4,
+        margin: theme.spacing.unit * 4,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-        maxWidth: '400px',
-        minWidth: '200px'
+        width: '400px'
     },
     formControl: {
         margin: theme.spacing.unit,
         minWidth: 120,
-        maxWidth: 300,
+        maxWidth: 400,
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -48,6 +47,11 @@ const styles = theme => ({
     submit: {
         marginTop: theme.spacing.unit * 3,
     },
+    side: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    }
 })
 
 class InternalNaming extends React.Component {
@@ -59,6 +63,7 @@ class InternalNaming extends React.Component {
         projectCategories: null,
         categoryId: '',
         response: '',
+        responseI: '',
         internal_name: '',
         internalNameError: false
     };
@@ -81,7 +86,7 @@ class InternalNaming extends React.Component {
     }
 
     loadCategories = () => {
-        fetch('http://192.168.99.100:6969/api/category', {
+        fetch('http://192.168.99.100:6969/api/category?pid=' + this.state.projectId, {
             mode: 'cors',
             credentials: 'include'
         })
@@ -101,12 +106,15 @@ class InternalNaming extends React.Component {
 
     componentDidMount() {
         this.loadProjects();
-        this.loadCategories();
     }
 
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value
+        }, () => {
+            if (name === 'projectId') {
+                this.loadCategories();
+            }
         })
     }
 
@@ -191,7 +199,7 @@ class InternalNaming extends React.Component {
                         history.push('/login');
                     } else if (json.msg) {
                         this.setState({
-                            response: json.msg
+                            responseI: json.msg
                         });
                     } else {
                         console.log(json);
@@ -227,21 +235,48 @@ class InternalNaming extends React.Component {
                                 </Select>
                             </FormControl>
                         </Paper>
-                        <Paper className={classes.paper}>
-                            <Typography component="h1" variant="h6">
-                                Category
-                            </Typography>
-                            <form className={classes.form} onSubmit={this.handleSubmit('category')}>
-                                <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
-                                    <InputLabel htmlFor="category_name">Category Name</InputLabel>
-                                    <Input value={this.state.category_name} onChange={this.handleChange('category_name')} id="category_name" name="category_name" disableUnderline/>
-                                </FormControl>
-                                {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
-                                <Button disabled={this.state.projectId === "" || this.state.category_name === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                                    Add category
-                                </Button>
-                            </form>
-                        </Paper>
+                        <div className={classes.side}>
+                            <Paper className={classes.paper}>
+                                <Typography component="h1" variant="h6">
+                                    Category
+                                </Typography>
+                                <form className={classes.form} onSubmit={this.handleSubmit('category')}>
+                                    <FormControl className={classes.formControl} disabled={this.state.projectId === ""} margin="normal" required fullWidth>
+                                        <InputLabel htmlFor="category_name">Category Name</InputLabel>
+                                        <Input value={this.state.category_name} onChange={this.handleChange('category_name')} id="category_name" name="category_name" disableUnderline/>
+                                    </FormControl>
+                                    {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
+                                    <Button disabled={this.state.projectId === "" || this.state.category_name === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                                        Add category
+                                    </Button>
+                                </form>
+                            </Paper>
+                            <Paper className={classes.paper}>
+                                <Typography component="h1" variant="h6">
+                                    Internal Name
+                                </Typography>
+                                <form className={classes.form} onSubmit={this.handleSubmit('internal_name')}>
+                                    <FormControl className={classes.formControl} disabled={this.state.projectId === "" || this.state.categoryId === ""} margin="normal" required fullWidth>
+                                        <InputLabel htmlFor="internal_name">Internal Name</InputLabel>
+                                        <Input value={this.state.internal_name} onChange={this.handleChange('internal_name')} id="internal_name" name="internal_name" disableUnderline/>
+                                    </FormControl>
+                                    <FormControl className={classes.formControl} margin="normal" required disabled={this.state.projectId === ""} fullWidth>
+                                        <InputLabel htmlFor="categoryId">Select a Category</InputLabel>
+                                        <Select autoFocus autoWidth value={this.state.categoryId} onChange={this.handleChange('categoryId')} name="categoryId" inputProps={{ id: 'categoryId-required' }}>
+                                            {this.state.projectCategories != null && this.state.projectCategories.map((project, i) => (
+                                                <MenuItem key={i} value={project.id}>
+                                                    {project.project_name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                    {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
+                                    <Button disabled={this.state.projectId === "" || this.state.internal_name === "" || this.state.categoryId === ""} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                                        Add Internal Name
+                                    </Button>
+                                </form>
+                            </Paper>
+                        </div>
                     </main>
                 </div>
             </React.Fragment>

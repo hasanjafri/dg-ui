@@ -33,7 +33,6 @@ const styles = theme => ({
         alignItems: 'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
         maxWidth: '400px',
-        height: '100%'
     },
     form: {
         width: '100%', // Fix IE 11 issue.
