@@ -206,7 +206,7 @@ class ManageSuppliers extends React.Component {
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer}/>
                         <Paper className={classes.paper}>
-                            <Typography component="h1" variant="h6" className={classes.projectTitle}>
+                            <Typography component="h1" variant="h6">
                                 Project
                             </Typography>
                             <form className={classes.form} onSubmit={this.handleSubmit}>

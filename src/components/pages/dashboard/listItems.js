@@ -28,6 +28,12 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Instructions" />
     </ListItem>
+    <ListItem button selected={current_path === '/dashboard/internal_naming'? true : false} onClick={() => history.push('/dashboard/internal_naming')}>
+      <ListItemIcon>
+        <BarChartIcon />
+      </ListItemIcon>
+      <ListItemText primary="Internal Naming" />
+    </ListItem>
     <ListItem button selected={current_path === '/dashboard/order_input'? true : false} onClick={() => history.push('/dashboard/order_input')}>
       <ListItemIcon>
         <PeopleIcon />
