@@ -14,7 +14,7 @@ const styles = {
     overflowX: 'auto',
   },
   table: {
-    minWidth: 700,
+    width: '100%',
   },
 };
 

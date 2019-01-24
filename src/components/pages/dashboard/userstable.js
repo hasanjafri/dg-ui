@@ -16,7 +16,7 @@ const styles = {
       alignItems: 'center'
   },
   table: {
-      minWidth: 350,
+      width: '100%',
       textAlign: 'center',
   },
 };
