@@ -311,7 +311,7 @@ class OrderInput extends React.Component {
                                 </FormControl>
                                 {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
                                 <Button disabled={this.state.projectId === "" || this.state.supplierId === ''} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                                    Add supplier
+                                    Add Inventory Product
                                 </Button>
                             </form>
                         </Paper>
