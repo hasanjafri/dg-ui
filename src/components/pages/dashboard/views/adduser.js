@@ -217,7 +217,7 @@ class AddUser extends React.Component {
                                 </FormControl>
                                 {this.state.response !== '' ? <FormHelperText focused component="h6">{this.state.response}</FormHelperText> : null}
                                 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                                    Add project
+                                    Add user
                                 </Button>
                             </form>
                         </Paper>

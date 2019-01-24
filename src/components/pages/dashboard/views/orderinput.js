@@ -6,7 +6,7 @@ import history from '../../../history';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
 import SideNavBar from '../sidenavbar';
@@ -217,6 +217,8 @@ class OrderInput extends React.Component {
             if (name === 'projectId') {
                 this.setSupplierData();
                 this.loadCategories();
+            } else if (name === 'internal_name_id') {
+                console.log(this.state.internal_name_id);
             }
         });
     }
@@ -253,20 +255,19 @@ class OrderInput extends React.Component {
                                         ))}
                                     </Select>
                                 </FormControl>
-                                <FormControl className={classes.formControl} margin="normal" required fullWidth>
+                                <FormControl disabled={this.state.projectId === ""} className={classes.formControl} margin="normal" required fullWidth>
                                     <InputLabel htmlFor="internal_name_id">Select Internal Name</InputLabel>
-                                    <Select autoFocus autoWidth value={this.state.internal_name_id} onChange={this.handleChange('internal_name_id')} name="internal_name_id" inputProps={{ id: 'internal_name_id-required' }}>
+                                    <NativeSelect onChange={this.handleChange('internal_name_id')}>
                                         {this.state.categoryData != null && this.state.categoryData.map((category, i) => (
-                                            <MenuList>
-                                                <MenuItem key={i} disabled className={classes.menuHeading}>{category.category_name}</MenuItem>
+                                            <optgroup key={i} label={category.category_name}>
                                                 {category.internal_names.map((internal_name, i) => (
-                                                    <MenuItem key={i} value={internal_name.id} className={classes.menuItem}>
+                                                    <option key={i} value={internal_name.id}>
                                                         {internal_name.internal_name}
-                                                    </MenuItem>
+                                                    </option>
                                                 ))}
-                                            </MenuList>
-                                        ))}
-                                    </Select>
+                                            </optgroup>
+                                    ))}
+                                    </NativeSelect>
                                 </FormControl>
                                 <FormControl required fullWidth className={classes.formControl} disabled={this.state.projectId === ""} margin="normal">
                                     <InputLabel htmlFor="supplierId">Select a Supplier</InputLabel>
