@@ -21,7 +21,7 @@ const styles = theme => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing.unit * 3,
-        height: '110vh',
+        height: '100%',
         overflow: 'auto',
         display: 'flex',
         flexDirection: 'column',
@@ -311,7 +311,7 @@ class OrderInput extends React.Component {
                                 </FormControl>
                                 {this.state.response !== '' ? <FormHelperText focused error component="h4">{this.state.response}</FormHelperText> : null}
                                 <Button disabled={this.state.projectId === "" || this.state.supplierId === ''} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                                    Add supplier
+                                    Add Inventory Product
                                 </Button>
                             </form>
                         </Paper>
